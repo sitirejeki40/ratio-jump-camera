@@ -2541,23 +2541,48 @@ function finishGame() {
    RESTART
 ================================================== */
 
-restartBtn.addEventListener(
-  "click",
-  function() {
-
-    location.reload();
-
-  }
-);
 
 
-playAgain.addEventListener(
-  "click",
-  function() {
+// ==========================================
+// TOMBOL ULANGI
+// ==========================================
 
-    location.reload();
+const restartBtn =
+  document.getElementById("restartBtn");
 
-  }
+if (restartBtn) {
+
+  restartBtn.addEventListener(
+    "click",
+    function() {
+
+      location.reload();
+
+    }
+  );
+
+}
+
+
+// ==========================================
+// TOMBOL MAIN LAGI
+// ==========================================
+
+const playAgain =
+  document.getElementById("playAgain");
+
+if (playAgain) {
+
+  playAgain.addEventListener(
+    "click",
+    function() {
+
+      location.reload();
+
+    }
+  );
+
+}
 );
 
 
