@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>RATIO JUMP</title>
 
@@ -27,11 +24,6 @@ body {
   background: #111;
 }
 
-
-/* ==================================================
-   GAME
-================================================== */
-
 #game {
   position: relative;
   width: 100vw;
@@ -41,9 +33,9 @@ body {
 }
 
 
-/* ==================================================
-   CAMERA FULLSCREEN
-================================================== */
+/* =========================================
+   CAMERA
+========================================= */
 
 #video {
   position: absolute;
@@ -62,9 +54,9 @@ body {
 }
 
 
-/* ==================================================
+/* =========================================
    OVERLAY
-================================================== */
+========================================= */
 
 .dark-overlay {
   position: absolute;
@@ -73,10 +65,10 @@ body {
   background:
     linear-gradient(
       to bottom,
-      rgba(0,0,0,.58),
-      rgba(0,0,0,.06) 32%,
-      rgba(0,0,0,.04) 68%,
-      rgba(0,0,0,.48)
+      rgba(0,0,0,.55),
+      rgba(0,0,0,.05) 35%,
+      rgba(0,0,0,.05) 65%,
+      rgba(0,0,0,.45)
     );
 
   pointer-events: none;
@@ -85,9 +77,9 @@ body {
 }
 
 
-/* ==================================================
-   3 ZONA KAMERA
-================================================== */
+/* =========================================
+   3 ZONA
+========================================= */
 
 .zone-overlay {
   position: absolute;
@@ -102,41 +94,41 @@ body {
 }
 
 .zone-left {
-  background: rgba(50, 220, 90, .18);
+  background: rgba(40,215,85,.18);
 
   border-right:
     4px dashed
-    rgba(255,255,255,.95);
+    rgba(255,255,255,.9);
 }
 
 .zone-middle {
   position: relative;
 
   background:
-    rgba(255,255,255,.07);
+    rgba(255,255,255,.06);
 
   border-left:
     1px solid
-    rgba(255,255,255,.15);
+    rgba(255,255,255,.12);
 
   border-right:
     1px solid
-    rgba(255,255,255,.15);
+    rgba(255,255,255,.12);
 }
 
 .zone-right {
   background:
-    rgba(240, 65, 65, .18);
+    rgba(235,65,65,.18);
 
   border-left:
     4px dashed
-    rgba(255,255,255,.95);
+    rgba(255,255,255,.9);
 }
 
 
-/* ==================================================
+/* =========================================
    STANDBY
-================================================== */
+========================================= */
 
 .standby {
   position: absolute;
@@ -145,58 +137,55 @@ body {
   left: 50%;
 
   transform:
-    translate(-50%, -50%)
+    translate(-50%,-50%)
     rotate(-90deg);
 
+  padding: 8px 14px;
+
+  border-radius: 10px;
+
   background:
-    rgba(0,0,0,.48);
+    rgba(0,0,0,.45);
 
   color: white;
 
-  padding:
-    9px 15px;
+  font-size: 17px;
 
-  border-radius:
-    10px;
+  font-weight: 900;
 
-  font-size:
-    18px;
+  letter-spacing: 2px;
 
-  font-weight:
-    900;
+  text-shadow: 2px 2px 5px #000;
 
-  letter-spacing:
-    2px;
-
-  text-shadow:
-    2px 2px 5px #000;
-
-  white-space:
-    nowrap;
+  white-space: nowrap;
 }
 
 
-/* ==================================================
+/* =========================================
    HEADER
-================================================== */
+========================================= */
 
 .header {
   position: absolute;
 
-  top: 14px;
+  top: 12px;
   left: 18px;
   right: 18px;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
   z-index: 20;
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
 
   color: white;
 
   text-shadow:
-    2px 2px 6px rgba(0,0,0,.85);
+    2px 2px 6px #000;
 }
 
 .title {
@@ -206,30 +195,31 @@ body {
 
 .info {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .info-box {
-  padding: 9px 15px;
-
-  border-radius: 13px;
-
   background:
     rgba(0,0,0,.58);
 
+  padding: 8px 14px;
+
+  border-radius: 12px;
+
   font-size: 18px;
+
   font-weight: 900;
 }
 
 
-/* ==================================================
-   CAMERA STATUS
-================================================== */
+/* =========================================
+   STATUS
+========================================= */
 
 .camera-status {
   position: absolute;
 
-  top: 65px;
+  top: 60px;
   left: 18px;
 
   z-index: 20;
@@ -239,106 +229,96 @@ body {
 
   color: white;
 
-  padding: 7px 12px;
+  padding: 6px 11px;
 
-  border-radius: 10px;
+  border-radius: 9px;
 
   font-size: 14px;
 
   font-weight: bold;
 }
 
-
-/* ==================================================
-   BGM STATUS
-================================================== */
-
 .bgm-status {
   position: absolute;
 
-  top: 65px;
+  top: 60px;
   right: 18px;
 
   z-index: 20;
-
-  padding:
-    7px 12px;
-
-  border-radius:
-    10px;
 
   background:
     rgba(0,0,0,.58);
 
   color: white;
 
+  padding: 6px 11px;
+
+  border-radius: 9px;
+
   font-size: 14px;
 
   font-weight: bold;
 }
 
 
-/* ==================================================
+/* =========================================
    QUESTION
-================================================== */
+========================================= */
 
 .question-box {
   position: absolute;
 
-  top: 98px;
-
+  top: 95px;
   left: 50%;
 
   transform:
     translateX(-50%);
 
   width: 70%;
-
   max-width: 1100px;
 
   z-index: 20;
 
-  padding:
-    17px 25px;
+  padding: 17px 24px;
 
   border-radius: 20px;
 
   background:
     rgba(255,255,255,.95);
 
-  color:
-    #182033;
-
   text-align: center;
 
+  color: #172033;
+
   box-shadow:
-    0 8px 24px
-    rgba(0,0,0,.25);
+    0 8px 25px rgba(0,0,0,.25);
 }
 
 .question-label {
-  font-size: 15px;
-  font-weight: 900;
+  margin-bottom: 6px;
 
-  margin-bottom: 7px;
+  font-size: 15px;
+
+  font-weight: 900;
 }
 
 .question {
-  font-size: 29px;
+  font-size: 28px;
+
   line-height: 1.3;
+
   font-weight: 900;
 }
 
 
-/* ==================================================
+/* =========================================
    TIMER
-================================================== */
+========================================= */
 
 .timer-area {
   position: absolute;
 
-  top: 240px;
-
+  top: 235px;
   left: 50%;
 
   transform:
@@ -361,55 +341,50 @@ body {
 
 .progress-bg {
   width: 420px;
-
   max-width: 50vw;
 
   height: 9px;
 
+  border-radius: 20px;
+
   overflow: hidden;
 
-  border-radius:
-    20px;
-
   background:
-    rgba(255,255,255,.4);
+    rgba(255,255,255,.35);
 }
 
 .progress {
   width: 100%;
   height: 100%;
 
-  background:
-    #ffd447;
+  background: #ffd447;
 }
 
 
-/* ==================================================
-   PILIHAN A / B
-================================================== */
+/* =========================================
+   PILIHAN
+========================================= */
 
 .choice {
   position: absolute;
 
-  bottom: 25px;
+  bottom: 27px;
 
-  z-index: 35;
+  z-index: 40;
 
   width: 28%;
-
   max-width: 430px;
 
-  min-height: 90px;
-
-  border-radius: 20px;
+  min-height: 88px;
 
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
   gap: 12px;
+
+  border-radius: 20px;
 
   font-size: 29px;
 
@@ -421,49 +396,46 @@ body {
     0 8px 20px
     rgba(0,0,0,.35);
 
-  transition:
-    .18s;
+  transition: .18s;
 }
 
 .choice:hover {
-  transform:
-    scale(1.03);
+  transform: scale(1.03);
 }
 
 .choice-a {
   left: 3%;
 
   background:
-    rgba(45,212,80,.96);
+    rgba(35,210,75,.96);
 
-  color:
-    #06240b;
+  color: #06210b;
 }
 
 .choice-b {
   right: 3%;
 
   background:
-    rgba(255,80,80,.96);
+    rgba(255,75,75,.96);
 
-  color:
-    #3b0505;
+  color: #3a0505;
 }
 
 .choice-tag {
   width: 52px;
   height: 52px;
 
+  border-radius: 50%;
+
   display: flex;
 
-  justify-content: center;
   align-items: center;
-
-  border-radius: 50%;
+  justify-content: center;
 
   background: white;
 
   font-size: 27px;
+
   font-weight: 900;
 }
 
@@ -477,44 +449,39 @@ body {
 
 .choice.correct {
   background:
-    #13e540 !important;
+    #15e442 !important;
 
-  color:
-    #06240b;
+  color: #042009;
 }
 
 .choice.wrong {
   background:
-    #ff2020 !important;
+    #ff2525 !important;
 
-  color:
-    white;
+  color: white;
 }
 
 .choice.dim {
-  filter:
-    brightness(.42);
+  filter: brightness(.42);
 }
 
 
-/* ==================================================
+/* =========================================
    FEEDBACK
-================================================== */
+========================================= */
 
 .feedback {
   position: absolute;
 
   left: 50%;
-
-  bottom: 137px;
+  bottom: 135px;
 
   transform:
     translateX(-50%);
 
-  z-index: 40;
+  z-index: 45;
 
   width: 40%;
-
   max-width: 700px;
 
   min-height: 62px;
@@ -528,26 +495,23 @@ body {
     rgba(255,255,255,.95);
 
   color:
-    #182033;
+    #172033;
 
-  text-align:
-    center;
+  text-align: center;
 
-  font-size:
-    18px;
+  font-size: 18px;
 
-  font-weight:
-    bold;
+  font-weight: bold;
 
   box-shadow:
     0 6px 16px
-    rgba(0,0,0,.22);
+    rgba(0,0,0,.2);
 }
 
 
-/* ==================================================
-   KONTROL GURU
-================================================== */
+/* =========================================
+   CONTROL GURU
+========================================= */
 
 .controls {
   position: absolute;
@@ -568,65 +532,51 @@ body {
 .control-btn {
   border: none;
 
+  padding: 6px 12px;
+
   border-radius: 8px;
 
-  padding:
-    6px 12px;
+  font-size: 13px;
 
-  font-size:
-    13px;
+  font-weight: bold;
 
-  font-weight:
-    bold;
-
-  cursor:
-    pointer;
+  cursor: pointer;
 }
 
 .camera-btn {
-  background:
-    #4285f4;
-
-  color:
-    white;
+  background: #4285f4;
+  color: white;
 }
 
 .reveal-btn {
-  background:
-    #ffd447;
-
-  color:
-    #332700;
+  background: #ffd447;
+  color: #332500;
 }
 
 .next-btn {
-  display:
-    none;
+  display: none;
 
-  background:
-    #4285f4;
+  background: #4285f4;
 
-  color:
-    white;
+  color: white;
 }
 
 .mute-btn {
   background:
     rgba(0,0,0,.65);
 
-  color:
-    white;
+  color: white;
 }
 
 
-/* ==================================================
+/* =========================================
    FULLSCREEN
-================================================== */
+========================================= */
 
 .fullscreen {
   position: absolute;
 
-  top: 63px;
+  top: 60px;
   left: 50%;
 
   transform:
@@ -634,32 +584,28 @@ body {
 
   z-index: 50;
 
+  padding: 5px 10px;
+
   border: none;
 
   border-radius: 8px;
-
-  padding:
-    5px 10px;
 
   background:
     rgba(0,0,0,.5);
 
   color: white;
 
-  font-size:
-    12px;
+  font-size: 12px;
 
-  font-weight:
-    bold;
+  font-weight: bold;
 
-  cursor:
-    pointer;
+  cursor: pointer;
 }
 
 
-/* ==================================================
+/* =========================================
    COUNTDOWN
-================================================== */
+========================================= */
 
 .countdown {
   position: absolute;
@@ -670,34 +616,29 @@ body {
 
   display: none;
 
-  align-items:
-    center;
+  align-items: center;
 
-  justify-content:
-    center;
+  justify-content: center;
 
   background:
-    rgba(8,16,30,.72);
+    rgba(5,15,28,.72);
 }
 
 .count-number {
-  font-size:
-    180px;
+  font-size: 180px;
 
-  font-weight:
-    900;
+  font-weight: 900;
 
-  color:
-    white;
+  color: white;
 
   text-shadow:
     0 8px 25px #000;
 }
 
 
-/* ==================================================
+/* =========================================
    FINISH
-================================================== */
+========================================= */
 
 .finish {
   position: absolute;
@@ -708,74 +649,56 @@ body {
 
   display: none;
 
-  align-items:
-    center;
+  align-items: center;
 
-  justify-content:
-    center;
+  justify-content: center;
 
-  text-align:
-    center;
-
-  background:
-    #16633f;
+  background: #176542;
 
   color: white;
+
+  text-align: center;
 }
 
 .finish-box {
-  padding:
-    50px;
+  padding: 50px;
 
-  border-radius:
-    30px;
+  border-radius: 30px;
 
   background:
-    rgba(0,0,0,.20);
+    rgba(0,0,0,.22);
 }
 
 .finish-title {
-  font-size:
-    48px;
-
-  font-weight:
-    900;
+  font-size: 48px;
+  font-weight: 900;
 }
 
 .final-score {
-  font-size:
-    85px;
+  font-size: 82px;
+  font-weight: 900;
 
-  font-weight:
-    900;
-
-  margin:
-    18px 0;
+  margin: 18px 0;
 }
 
 .play-again {
   border: none;
 
-  padding:
-    16px 30px;
+  padding: 16px 30px;
 
-  border-radius:
-    14px;
+  border-radius: 14px;
 
-  font-size:
-    23px;
+  font-size: 23px;
 
-  font-weight:
-    bold;
+  font-weight: bold;
 
-  cursor:
-    pointer;
+  cursor: pointer;
 }
 
 
-/* ==================================================
+/* =========================================
    RESPONSIVE
-================================================== */
+========================================= */
 
 @media(max-width:900px) {
 
@@ -785,7 +708,7 @@ body {
 
   .question-box {
     width: 90%;
-    top: 82px;
+    top: 80px;
   }
 
   .question {
@@ -806,12 +729,8 @@ body {
 
   .feedback {
     width: 55%;
-    bottom: 120px;
+    bottom: 118px;
     font-size: 15px;
-  }
-
-  .standby {
-    font-size: 13px;
   }
 
 }
@@ -828,7 +747,7 @@ body {
 
 
 <!-- ==================================================
-     CAMERA
+     VIDEO
 ================================================== -->
 
 <video
@@ -842,14 +761,12 @@ body {
 
 
 <!-- ==================================================
-     3 ZONA
+     PEMBAGI 3 ZONA
 ================================================== -->
 
 <div class="zone-overlay">
 
-  <div class="zone-left">
-  </div>
-
+  <div class="zone-left"></div>
 
   <div class="zone-middle">
 
@@ -859,9 +776,7 @@ body {
 
   </div>
 
-
-  <div class="zone-right">
-  </div>
+  <div class="zone-right"></div>
 
 </div>
 
@@ -880,36 +795,21 @@ body {
   <div class="info">
 
     <div class="info-box">
-
       SOAL
-      <span id="number">
-        0
-      </span>
+      <span id="number">0</span>
       /
-      <span id="total">
-        0
-      </span>
-
+      <span id="total">0</span>
     </div>
 
-
     <div class="info-box">
-
       ⭐
-      <span id="score">
-        0
-      </span>
-
+      <span id="score">0</span>
     </div>
 
   </div>
 
 </div>
 
-
-<!-- ==================================================
-     STATUS
-================================================== -->
 
 <div
   id="cameraStatus"
@@ -936,9 +836,7 @@ body {
 <div class="question-box">
 
   <div class="question-label">
-
     🧠 BACA • PIKIRKAN • JUMP!
-
   </div>
 
 
@@ -982,7 +880,7 @@ body {
 
 
 <!-- ==================================================
-     PILIHAN A
+     A
 ================================================== -->
 
 <div
@@ -993,15 +891,13 @@ body {
     A
   </div>
 
-  <div>
-    SENILAI
-  </div>
+  SENILAI
 
 </div>
 
 
 <!-- ==================================================
-     PILIHAN B
+     B
 ================================================== -->
 
 <div
@@ -1012,9 +908,7 @@ body {
     B
   </div>
 
-  <div>
-    BERBALIK NILAI
-  </div>
+  BERBALIK NILAI
 
 </div>
 
@@ -1033,7 +927,7 @@ body {
 
 
 <!-- ==================================================
-     KONTROL GURU
+     KONTROL
 ================================================== -->
 
 <div class="controls">
@@ -1110,7 +1004,7 @@ body {
 
 
 <!-- ==================================================
-     HASIL AKHIR
+     FINISH
 ================================================== -->
 
 <div
@@ -1120,9 +1014,7 @@ body {
   <div class="finish-box">
 
     <div class="finish-title">
-
       🏆 RATIO JUMP SELESAI!
-
     </div>
 
 
@@ -1141,7 +1033,6 @@ body {
         font-size:28px;
         font-weight:bold;
       ">
-
     </div>
 
 
@@ -1169,18 +1060,15 @@ body {
 
 /* ==================================================
    URL APPS SCRIPT
+   INI URL YANG BARU BU LAILY KIRIM
 ================================================== */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxoP3_605xuQQb3Rb0uwGPDNLHBq6Xdju3TYYIzom_XovINiPxofhUTeEF20_K8mDFb/exec";
 
 
-const PARENT_ORIGIN =
-"https://sitirejeki40.github.io";
-
-
 /* ==================================================
-   DATA GAME
+   DATA
 ================================================== */
 
 let questions = [];
@@ -1197,445 +1085,19 @@ let timerInterval = null;
 
 let countdownInterval = null;
 
-let bridgeFrame = null;
+let bgmTimer = null;
 
-let cameraReady = false;
+let bgmStep = 0;
 
 let bgmOn = true;
-
-
-/* ==================================================
-   AUDIO
-================================================== */
 
 let audioCtx = null;
 
 let masterGain = null;
 
-let bgmTimer = null;
-
-let bgmStep = 0;
-
 
 /* ==================================================
-   INIT AUDIO
-================================================== */
-
-function initAudio() {
-
-  if (audioCtx) {
-
-    if (
-      audioCtx.state === "suspended"
-    ) {
-
-      audioCtx.resume();
-
-    }
-
-    return;
-
-  }
-
-
-  const AudioContext =
-    window.AudioContext ||
-    window.webkitAudioContext;
-
-
-  if (!AudioContext) {
-
-    return;
-
-  }
-
-
-  audioCtx =
-    new AudioContext();
-
-
-  masterGain =
-    audioCtx.createGain();
-
-
-  masterGain.gain.value =
-    0.16;
-
-
-  masterGain.connect(
-    audioCtx.destination
-  );
-
-}
-
-
-/* ==================================================
-   SOUND TONE
-================================================== */
-
-function soundTone(
-  frequency,
-  duration,
-  volume,
-  type
-) {
-
-  if (
-    !audioCtx ||
-    !masterGain
-  ) {
-
-    return;
-
-  }
-
-
-  const osc =
-    audioCtx.createOscillator();
-
-
-  const gain =
-    audioCtx.createGain();
-
-
-  osc.type =
-    type || "sine";
-
-
-  osc.frequency.value =
-    frequency;
-
-
-  gain.gain.setValueAtTime(
-    0.001,
-    audioCtx.currentTime
-  );
-
-
-  gain.gain.exponentialRampToValueAtTime(
-    volume || 0.05,
-    audioCtx.currentTime + 0.03
-  );
-
-
-  gain.gain.exponentialRampToValueAtTime(
-    0.001,
-    audioCtx.currentTime + duration
-  );
-
-
-  osc.connect(gain);
-
-  gain.connect(
-    masterGain
-  );
-
-
-  osc.start();
-
-  osc.stop(
-    audioCtx.currentTime +
-    duration +
-    0.03
-  );
-
-}
-
-
-/* ==================================================
-   BGM
-================================================== */
-
-function startBGM() {
-
-  if (!bgmOn) {
-
-    return;
-
-  }
-
-
-  initAudio();
-
-
-  if (!audioCtx) {
-
-    return;
-
-  }
-
-
-  if (bgmTimer) {
-
-    return;
-
-  }
-
-
-  const melody = [
-
-    523.25,
-    659.25,
-    783.99,
-    659.25,
-
-    587.33,
-    698.46,
-    880.00,
-    698.46
-
-  ];
-
-
-  const bass = [
-
-    130.81,
-    130.81,
-    146.83,
-    146.83,
-
-    174.61,
-    174.61,
-    155.56,
-    155.56
-
-  ];
-
-
-  bgmStep = 0;
-
-
-  function playStep() {
-
-    const note =
-      melody[
-        bgmStep %
-        melody.length
-      ];
-
-
-    const bassNote =
-      bass[
-        bgmStep %
-        bass.length
-      ];
-
-
-    soundTone(
-      note,
-      0.35,
-      0.035,
-      "sine"
-    );
-
-
-    if (
-      bgmStep % 2 === 0
-    ) {
-
-      soundTone(
-        bassNote,
-        0.4,
-        0.022,
-        "triangle"
-      );
-
-    }
-
-
-    bgmStep++;
-
-  }
-
-
-  playStep();
-
-
-  bgmTimer =
-    setInterval(
-      playStep,
-      470
-    );
-
-}
-
-
-/* ==================================================
-   STOP BGM
-================================================== */
-
-function stopBGM() {
-
-  if (bgmTimer) {
-
-    clearInterval(
-      bgmTimer
-    );
-
-    bgmTimer = null;
-
-  }
-
-}
-
-
-/* ==================================================
-   YEAY
-================================================== */
-
-function playYeay() {
-
-  initAudio();
-
-
-  // Ucapan YEAY
-  if (
-    "speechSynthesis"
-    in window
-  ) {
-
-    const speech =
-      new SpeechSynthesisUtterance(
-        "Yeay!"
-      );
-
-
-    speech.lang =
-      "en-US";
-
-    speech.rate =
-      1.15;
-
-    speech.pitch =
-      1.4;
-
-    speech.volume =
-      1;
-
-
-    speechSynthesis.cancel();
-
-    speechSynthesis.speak(
-      speech
-    );
-
-  }
-
-
-  // Nada kemenangan
-  const notes = [
-
-    523.25,
-    659.25,
-    783.99,
-    1046.50
-
-  ];
-
-
-  notes.forEach(
-    function(
-      note,
-      index
-    ) {
-
-      setTimeout(
-        function() {
-
-          soundTone(
-            note,
-            0.2,
-            0.10,
-            "triangle"
-          );
-
-        },
-        index * 120
-      );
-
-    }
-  );
-
-}
-
-
-/* ==================================================
-   BOOM
-================================================== */
-
-function playBoom() {
-
-  initAudio();
-
-
-  if (!audioCtx) {
-
-    return;
-
-  }
-
-
-  const osc =
-    audioCtx.createOscillator();
-
-
-  const gain =
-    audioCtx.createGain();
-
-
-  osc.type =
-    "sawtooth";
-
-
-  osc.frequency.setValueAtTime(
-    150,
-    audioCtx.currentTime
-  );
-
-
-  osc.frequency.exponentialRampToValueAtTime(
-    35,
-    audioCtx.currentTime + 0.5
-  );
-
-
-  gain.gain.setValueAtTime(
-    0.001,
-    audioCtx.currentTime
-  );
-
-
-  gain.gain.exponentialRampToValueAtTime(
-    0.35,
-    audioCtx.currentTime + 0.03
-  );
-
-
-  gain.gain.exponentialRampToValueAtTime(
-    0.001,
-    audioCtx.currentTime + 0.5
-  );
-
-
-  osc.connect(gain);
-
-  gain.connect(
-    audioCtx.destination
-  );
-
-
-  osc.start();
-
-  osc.stop(
-    audioCtx.currentTime +
-    0.55
-  );
-
-}
-
-
-/* ==================================================
-   KAMERA
+   ELEMENT
 ================================================== */
 
 const video =
@@ -1652,163 +1114,6 @@ const cameraStatus =
 document.getElementById(
   "cameraStatus"
 );
-
-
-cameraBtn.addEventListener(
-  "click",
-  async function() {
-
-    initAudio();
-
-
-    try {
-
-      const stream =
-        await navigator
-          .mediaDevices
-          .getUserMedia({
-
-            video: true,
-
-            audio: false
-
-          });
-
-
-      video.srcObject =
-        stream;
-
-
-      cameraReady =
-        true;
-
-
-      cameraStatus.innerHTML =
-        "🟢 KAMERA LIVE";
-
-
-      cameraBtn.innerText =
-        "✅ KAMERA AKTIF";
-
-
-      cameraBtn.disabled =
-        true;
-
-
-      // Setelah kamera aktif,
-      // mulai game
-      if (
-        questions.length > 0 &&
-        !revealed
-      ) {
-
-        showQuestion();
-
-      }
-
-    }
-
-    catch(error) {
-
-      cameraStatus.innerHTML =
-        "🔴 KAMERA GAGAL";
-
-
-      alert(
-        "Kamera tidak dapat dibuka:\n\n" +
-        error.message
-      );
-
-    }
-
-  }
-);
-
-
-/* ==================================================
-   BGM BUTTON
-================================================== */
-
-const muteBtn =
-document.getElementById(
-  "muteBtn"
-);
-
-const bgmStatus =
-document.getElementById(
-  "bgmStatus"
-);
-
-
-muteBtn.addEventListener(
-  "click",
-  function() {
-
-    bgmOn =
-      !bgmOn;
-
-
-    if (bgmOn) {
-
-      muteBtn.innerText =
-        "🔊 BGM";
-
-
-      bgmStatus.innerText =
-        "🔊 BGM ON";
-
-
-      startBGM();
-
-    }
-
-    else {
-
-      muteBtn.innerText =
-        "🔇 BGM";
-
-
-      bgmStatus.innerText =
-        "🔇 BGM OFF";
-
-
-      stopBGM();
-
-    }
-
-  }
-);
-
-
-/* ==================================================
-   FULLSCREEN
-================================================== */
-
-document
-  .getElementById(
-    "fullscreenBtn"
-  )
-  .addEventListener(
-    "click",
-    function() {
-
-      if (
-        document.documentElement
-          .requestFullscreen
-      ) {
-
-        document.documentElement
-          .requestFullscreen();
-
-      }
-
-    }
-  );
-
-
-/* ==================================================
-   ELEMENT GAME
-================================================== */
 
 const questionEl =
 document.getElementById(
@@ -1900,153 +1205,445 @@ document.getElementById(
   "playAgain"
 );
 
+const muteBtn =
+document.getElementById(
+  "muteBtn"
+);
+
+const bgmStatus =
+document.getElementById(
+  "bgmStatus"
+);
+
 
 /* ==================================================
-   BUAT BRIDGE
+   AUDIO
 ================================================== */
 
-function createBridge() {
+function initAudio() {
 
-  if (bridgeFrame) {
+  if (audioCtx) {
+
+    if (
+      audioCtx.state ===
+      "suspended"
+    ) {
+
+      audioCtx.resume();
+
+    }
 
     return;
 
   }
 
 
-  bridgeFrame =
-    document.createElement(
-      "iframe"
-    );
+  const AC =
+    window.AudioContext ||
+    window.webkitAudioContext;
 
 
-  bridgeFrame.style.position =
-    "fixed";
-
-  bridgeFrame.style.width =
-    "1px";
-
-  bridgeFrame.style.height =
-    "1px";
-
-  bridgeFrame.style.border =
-    "0";
-
-  bridgeFrame.style.opacity =
-    "0";
-
-  bridgeFrame.style.left =
-    "-100px";
-
-  bridgeFrame.style.top =
-    "-100px";
-
-  bridgeFrame.style.pointerEvents =
-    "none";
+  if (!AC) return;
 
 
-  bridgeFrame.src =
-    API_URL +
-    "?bridge=1";
+  audioCtx =
+    new AC();
 
 
-  document.body.appendChild(
-    bridgeFrame
+  masterGain =
+    audioCtx.createGain();
+
+
+  masterGain.gain.value =
+    0.15;
+
+
+  masterGain.connect(
+    audioCtx.destination
+  );
+
+}
+
+
+function tone(
+  frequency,
+  duration,
+  volume,
+  type
+) {
+
+  if (
+    !audioCtx ||
+    !masterGain
+  ) {
+
+    return;
+
+  }
+
+
+  const osc =
+    audioCtx.createOscillator();
+
+
+  const gain =
+    audioCtx.createGain();
+
+
+  osc.type =
+    type || "sine";
+
+
+  osc.frequency.value =
+    frequency;
+
+
+  gain.gain.setValueAtTime(
+    0.001,
+    audioCtx.currentTime
+  );
+
+
+  gain.gain.exponentialRampToValueAtTime(
+    volume || 0.05,
+    audioCtx.currentTime + 0.03
+  );
+
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    audioCtx.currentTime + duration
+  );
+
+
+  osc.connect(gain);
+
+  gain.connect(
+    masterGain
+  );
+
+
+  osc.start();
+
+  osc.stop(
+    audioCtx.currentTime +
+    duration +
+    0.03
   );
 
 }
 
 
 /* ==================================================
-   TERIMA DATA DARI APPS SCRIPT
+   BACKSOUND
 ================================================== */
 
-window.addEventListener(
-  "message",
-  function(event) {
+function startBGM() {
 
-    const data =
-      event.data;
+  if (!bgmOn) return;
+
+  initAudio();
+
+  if (!audioCtx) return;
+
+  if (bgmTimer) return;
+
+
+  const melody = [
+
+    523.25,
+    659.25,
+    783.99,
+    659.25,
+    587.33,
+    698.46,
+    880.00,
+    698.46
+
+  ];
+
+
+  const bass = [
+
+    130.81,
+    130.81,
+    146.83,
+    146.83,
+    174.61,
+    174.61,
+    155.56,
+    155.56
+
+  ];
+
+
+  bgmStep = 0;
+
+
+  function step() {
+
+    if (!bgmOn) return;
+
+
+    tone(
+      melody[
+        bgmStep %
+        melody.length
+      ],
+      0.35,
+      0.035,
+      "sine"
+    );
 
 
     if (
-      !data ||
-      data.source !==
-      "ratio-jump-bridge"
+      bgmStep % 2 === 0
     ) {
 
-      return;
+      tone(
+        bass[
+          bgmStep %
+          bass.length
+        ],
+        0.4,
+        0.02,
+        "triangle"
+      );
 
     }
 
 
-    /* SOAL */
+    bgmStep++;
 
-    if (
-      data.type ===
-      "questions"
-    ) {
-
-      questions =
-        Array.isArray(
-          data.data
-        )
-        ? data.data
-        : [];
+  }
 
 
-      if (
-        questions.length === 0
-      ) {
-
-        questionEl.innerText =
-          "❌ Bank soal kosong.";
-
-        return;
-
-      }
+  step();
 
 
-      questions.sort(
-        function() {
+  bgmTimer =
+    setInterval(
+      step,
+      470
+    );
 
-          return (
-            Math.random() -
-            0.5
-          );
+}
 
-        }
+
+function stopBGM() {
+
+  if (bgmTimer) {
+
+    clearInterval(
+      bgmTimer
+    );
+
+    bgmTimer = null;
+
+  }
+
+}
+
+
+/* ==================================================
+   YEAY
+================================================== */
+
+function playYeay() {
+
+  initAudio();
+
+
+  if (
+    "speechSynthesis"
+    in window
+  ) {
+
+    const speech =
+      new SpeechSynthesisUtterance(
+        "Yeay!"
       );
 
 
-      totalEl.innerText =
-        questions.length;
+    speech.lang =
+      "en-US";
+
+    speech.rate =
+      1.15;
+
+    speech.pitch =
+      1.35;
+
+    speech.volume =
+      1;
 
 
-      questionEl.innerText =
-        questions[0].soal;
+    speechSynthesis.cancel();
+
+    speechSynthesis.speak(
+      speech
+    );
+
+  }
 
 
-      feedbackEl.innerHTML =
-        cameraReady
+  const notes = [
+    523.25,
+    659.25,
+    783.99,
+    1046.50
+  ];
 
-          ? "Bersiap! 🏃"
 
-          : "🎥 Aktifkan kamera untuk memulai.";
+  notes.forEach(
+    function(
+      note,
+      index
+    ) {
+
+      setTimeout(
+        function() {
+
+          tone(
+            note,
+            0.2,
+            0.10,
+            "triangle"
+          );
+
+        },
+        index * 120
+      );
+
+    }
+  );
+
+}
+
+
+/* ==================================================
+   BOOM
+================================================== */
+
+function playBoom() {
+
+  initAudio();
+
+
+  if (!audioCtx) return;
+
+
+  const osc =
+    audioCtx.createOscillator();
+
+
+  const gain =
+    audioCtx.createGain();
+
+
+  osc.type =
+    "sawtooth";
+
+
+  osc.frequency.setValueAtTime(
+    150,
+    audioCtx.currentTime
+  );
+
+
+  osc.frequency.exponentialRampToValueAtTime(
+    35,
+    audioCtx.currentTime + 0.5
+  );
+
+
+  gain.gain.setValueAtTime(
+    0.001,
+    audioCtx.currentTime
+  );
+
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.35,
+    audioCtx.currentTime + 0.03
+  );
+
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    audioCtx.currentTime + 0.5
+  );
+
+
+  osc.connect(gain);
+
+  gain.connect(
+    audioCtx.destination
+  );
+
+
+  osc.start();
+
+  osc.stop(
+    audioCtx.currentTime +
+    0.55
+  );
+
+}
+
+
+/* ==================================================
+   KAMERA
+================================================== */
+
+cameraBtn.addEventListener(
+  "click",
+  async function() {
+
+    initAudio();
+
+
+    try {
+
+      const stream =
+        await navigator
+          .mediaDevices
+          .getUserMedia({
+
+            video: true,
+
+            audio: false
+
+          });
+
+
+      video.srcObject =
+        stream;
+
+
+      cameraStatus.innerText =
+        "🟢 KAMERA LIVE";
+
+
+      cameraBtn.innerText =
+        "✅ KAMERA AKTIF";
+
+
+      cameraBtn.disabled =
+        true;
 
     }
 
+    catch(error) {
 
-    /* ERROR */
+      cameraStatus.innerText =
+        "🔴 KAMERA GAGAL";
 
-    if (
-      data.type ===
-      "error"
-    ) {
 
-      questionEl.innerHTML =
-        "❌ Gagal mengambil soal.<br><br>" +
-        data.message;
+      alert(
+        "Kamera tidak dapat dibuka.\n\n" +
+        error.message
+      );
 
     }
 
@@ -2055,22 +1652,224 @@ window.addEventListener(
 
 
 /* ==================================================
-   LOAD QUESTIONS
+   BGM BUTTON
+================================================== */
+
+muteBtn.addEventListener(
+  "click",
+  function() {
+
+    bgmOn =
+      !bgmOn;
+
+
+    if (bgmOn) {
+
+      muteBtn.innerText =
+        "🔊 BGM";
+
+      bgmStatus.innerText =
+        "🔊 BGM ON";
+
+      startBGM();
+
+    }
+
+    else {
+
+      muteBtn.innerText =
+        "🔇 BGM";
+
+      bgmStatus.innerText =
+        "🔇 BGM OFF";
+
+      stopBGM();
+
+    }
+
+  }
+);
+
+
+/* ==================================================
+   FULLSCREEN
+================================================== */
+
+document
+  .getElementById(
+    "fullscreenBtn"
+  )
+  .addEventListener(
+    "click",
+    function() {
+
+      if (
+        document.documentElement
+          .requestFullscreen
+      ) {
+
+        document.documentElement
+          .requestFullscreen();
+
+      }
+
+    }
+  );
+
+
+/* ==================================================
+   AMBIL SOAL LANGSUNG DARI APPS SCRIPT
 ================================================== */
 
 function loadQuestions() {
 
   questionEl.innerText =
-    "⏳ Mengambil soal...";
+    "⏳ Mengambil soal dari Spreadsheet...";
 
 
-  createBridge();
+  const callbackName =
+    "ratioJumpQuestions_" +
+    Date.now();
+
+
+  window[callbackName] =
+    function(data) {
+
+      try {
+
+        if (
+          !Array.isArray(data)
+        ) {
+
+          throw new Error(
+            "Data soal tidak berbentuk daftar."
+          );
+
+        }
+
+
+        questions =
+          data;
+
+
+        if (
+          questions.length === 0
+        ) {
+
+          questionEl.innerText =
+            "❌ Bank soal kosong.";
+
+          return;
+
+        }
+
+
+        questions =
+          questions.sort(
+            function() {
+
+              return (
+                Math.random() -
+                0.5
+              );
+
+            }
+          );
+
+
+        totalEl.innerText =
+          questions.length;
+
+
+        showQuestion();
+
+      }
+
+      catch(error) {
+
+        console.error(error);
+
+        questionEl.innerText =
+          "❌ Data soal tidak dapat dibaca.";
+
+      }
+
+
+      // Bersihkan global callback
+      delete window[callbackName];
+
+    };
+
+
+  const script =
+    document.createElement(
+      "script"
+    );
+
+
+  script.src =
+    API_URL +
+    "?api=questions" +
+    "&callback=" +
+    callbackName +
+    "&t=" +
+    Date.now();
+
+
+  script.async =
+    true;
+
+
+  script.onload =
+    function() {
+
+      setTimeout(
+        function() {
+
+          if (
+            window[
+              callbackName
+            ]
+          ) {
+
+            questionEl.innerText =
+              "❌ Soal tidak diterima dari Apps Script.";
+
+            delete window[
+              callbackName
+            ];
+
+          }
+
+        },
+        5000
+      );
+
+    };
+
+
+  script.onerror =
+    function() {
+
+      questionEl.innerText =
+        "❌ Gagal terhubung ke Google Spreadsheet.";
+
+      delete window[
+        callbackName
+      ];
+
+    };
+
+
+  document.body.appendChild(
+    script
+  );
 
 }
 
 
 /* ==================================================
-   SHOW QUESTION
+   TAMPILKAN SOAL
 ================================================== */
 
 function showQuestion() {
@@ -2096,13 +1895,6 @@ function showQuestion() {
     questions[currentIndex];
 
 
-  if (!q) {
-
-    return;
-
-  }
-
-
   numberEl.innerText =
     currentIndex + 1;
 
@@ -2120,7 +1912,7 @@ function showQuestion() {
 
 
   feedbackEl.innerHTML =
-    "Baca soal dan bersiap... 🏃";
+    "Bersiap untuk <b>JUMP!</b> 🏃";
 
 
   choiceA.className =
@@ -2247,7 +2039,9 @@ function mulaiTimer() {
         timerEl.innerText =
           Math.max(
             0,
-            Math.ceil(time)
+            Math.ceil(
+              time
+            )
           );
 
 
@@ -2284,7 +2078,7 @@ function mulaiTimer() {
 
           feedbackEl.innerHTML =
             "🏃 <b>WAKTU HABIS!</b><br>" +
-            "Klik A atau B sesuai pilihan siswa.";
+            "Sekarang pilih A atau B sesuai posisi siswa.";
 
         }
 
@@ -2328,8 +2122,7 @@ choiceA.addEventListener(
 
 
     feedbackEl.innerHTML =
-      "🅰️ Pilihan siswa: <b>SENILAI</b><br>" +
-      "Klik LIHAT JAWABAN.";
+      "🅰️ Pilihan siswa: <b>SENILAI</b>";
 
   }
 );
@@ -2368,15 +2161,14 @@ choiceB.addEventListener(
 
 
     feedbackEl.innerHTML =
-      "🅱️ Pilihan siswa: <b>BERBALIK NILAI</b><br>" +
-      "Klik LIHAT JAWABAN.";
+      "🅱️ Pilihan siswa: <b>BERBALIK NILAI</b>";
 
   }
 );
 
 
 /* ==================================================
-   LIHAT JAWABAN
+   REVEAL
 ================================================== */
 
 revealBtn.addEventListener(
@@ -2397,11 +2189,15 @@ revealBtn.addEventListener(
     ) {
 
       feedbackEl.innerHTML =
-        "⚠️ Pilih A atau B sesuai posisi siswa.";
+        "⚠️ Pilih A atau B terlebih dahulu.";
 
       return;
 
     }
+
+
+    revealed =
+      true;
 
 
     clearInterval(
@@ -2412,10 +2208,6 @@ revealBtn.addEventListener(
     stopBGM();
 
 
-    revealed =
-      true;
-
-
     const q =
       questions[currentIndex];
 
@@ -2424,10 +2216,6 @@ revealBtn.addEventListener(
       selectedAnswer ===
       q.jawaban;
 
-
-    /* ====================================
-       BENAR
-    ==================================== */
 
     if (benar) {
 
@@ -2472,18 +2260,13 @@ revealBtn.addEventListener(
 
 
       feedbackEl.innerHTML =
-        "🎉 <b>BENAR!</b><br>" +
+        "🎉 <b>YEAY! BENAR!</b><br>" +
         "+" +
         (Number(q.poin) || 10) +
         " POIN<br><br>" +
         q.pembahasan;
 
     }
-
-
-    /* ====================================
-       SALAH
-    ==================================== */
 
     else {
 
@@ -2547,7 +2330,7 @@ revealBtn.addEventListener(
 
 
 /* ==================================================
-   SIMPAN HASIL
+   SIMPAN HASIL LANGSUNG KE APPS SCRIPT
 ================================================== */
 
 function saveResult(
@@ -2556,59 +2339,82 @@ function saveResult(
   benar
 ) {
 
-  if (
-    !bridgeFrame ||
-    !bridgeFrame.contentWindow
-  ) {
+  const callbackName =
+    "ratioJumpSave_" +
+    Date.now();
 
-    console.warn(
-      "Bridge belum tersedia."
+
+  window[callbackName] =
+    function(result) {
+
+      console.log(
+        "Hasil tersimpan:",
+        result
+      );
+
+
+      delete window[
+        callbackName
+      ];
+
+    };
+
+
+  const script =
+    document.createElement(
+      "script"
     );
 
-    return;
 
-  }
+  script.src =
+
+    API_URL +
+
+    "?api=save" +
+
+    "&callback=" +
+    callbackName +
+
+    "&pemain=" +
+    encodeURIComponent(
+      "Kelas VII"
+    ) +
+
+    "&id=" +
+    encodeURIComponent(
+      q.id
+    ) +
+
+    "&jawaban=" +
+    encodeURIComponent(
+      answer
+    ) +
+
+    "&jawabanBenar=" +
+    encodeURIComponent(
+      q.jawaban
+    ) +
+
+    "&status=" +
+    encodeURIComponent(
+      benar
+        ? "BENAR"
+        : "SALAH"
+    ) +
+
+    "&skor=" +
+    encodeURIComponent(
+      benar
+        ? Number(q.poin) || 10
+        : 0
+    ) +
+
+    "&t=" +
+    Date.now();
 
 
-  bridgeFrame.contentWindow.postMessage(
-
-    {
-      source:
-        "ratio-jump-game",
-
-      type:
-        "save",
-
-      payload: {
-
-        pemain:
-          "Kelas VII",
-
-        id:
-          q.id,
-
-        jawaban:
-          answer,
-
-        jawabanBenar:
-          q.jawaban,
-
-        status:
-          benar
-            ? "BENAR"
-            : "SALAH",
-
-        skor:
-          benar
-            ? Number(q.poin) || 10
-            : 0
-
-      }
-
-    },
-
-    "*"
-
+  document.body.appendChild(
+    script
   );
 
 }
@@ -2637,15 +2443,6 @@ nextBtn.addEventListener(
     }
 
 
-    // kembali normal
-    choiceA.className =
-      "choice choice-a";
-
-
-    choiceB.className =
-      "choice choice-b";
-
-
     showQuestion();
 
   }
@@ -2659,7 +2456,6 @@ nextBtn.addEventListener(
 function finishGame() {
 
   stopBGM();
-
 
   clearInterval(
     timerInterval
@@ -2679,7 +2475,7 @@ function finishGame() {
     " POIN";
 
 
-  const maxScore =
+  const max =
     questions.reduce(
       function(
         total,
@@ -2695,14 +2491,12 @@ function finishGame() {
 
 
   const accuracy =
-    maxScore > 0
-
+    max > 0
       ? Math.round(
           score /
-          maxScore *
+          max *
           100
         )
-
       : 0;
 
 
@@ -2711,7 +2505,7 @@ function finishGame() {
   ) {
 
     finalMessage.innerText =
-      "🏆 RATIO MASTER! Luar biasa!";
+      "🏆 RATIO MASTER!";
 
   }
 
@@ -2720,7 +2514,7 @@ function finishGame() {
   ) {
 
     finalMessage.innerText =
-      "⭐ RATIO EXPERT! Mantap!";
+      "⭐ RATIO EXPERT!";
 
   }
 
@@ -2729,7 +2523,7 @@ function finishGame() {
   ) {
 
     finalMessage.innerText =
-      "💪 RATIO EXPLORER! Terus berlatih!";
+      "💪 RATIO EXPLORER!";
 
   }
 
@@ -2747,27 +2541,28 @@ function finishGame() {
    RESTART
 ================================================== */
 
-function restartGame() {
-
-  location.reload();
-
-}
-
-
 restartBtn.addEventListener(
   "click",
-  restartGame
+  function() {
+
+    location.reload();
+
+  }
 );
 
 
 playAgain.addEventListener(
   "click",
-  restartGame
+  function() {
+
+    location.reload();
+
+  }
 );
 
 
 /* ==================================================
-   START
+   MULAI LOAD
 ================================================== */
 
 loadQuestions();
@@ -2775,5 +2570,4 @@ loadQuestions();
 </script>
 
 </body>
-
 </html>
