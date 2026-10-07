@@ -502,53 +502,47 @@
   // GAMBAR TITIK TUBUH
   // ==========================================
 
-  function drawLandmarks(landmarks) {
+function drawLandmarks(landmarks) {
 
-    ctx.fillStyle =
-      "#00ff00";
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
 
+  ctx.fillStyle = "#00ff00";
 
-    for (
-      const point of landmarks
+  for (const point of landmarks) {
+
+    if (
+      point.visibility !== undefined &&
+      point.visibility < 0.4
     ) {
-
-      if (
-        point.visibility !== undefined &&
-        point.visibility < 0.4
-      ) {
-
-        continue;
-
-      }
-
-
-      const x =
-        point.x *
-        canvas.width;
-
-
-      const y =
-        point.y *
-        canvas.height;
-
-
-      ctx.beginPath();
-
-
-      ctx.arc(
-        x,
-        y,
-        5,
-        0,
-        Math.PI * 2
-      );
-
-
-      ctx.fill();
-
+      continue;
     }
 
+    // Balik posisi X agar titik mengikuti
+    // tampilan video yang sudah di-mirror
+    const x =
+      (1 - point.x) * canvas.width;
+
+    const y =
+      point.y * canvas.height;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x,
+      y,
+      5,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fill();
   }
+}
 
 
   // ==========================================
