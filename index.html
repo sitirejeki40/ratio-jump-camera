@@ -1,44 +1,74 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>RATIO JUMP</title>
 
+
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
   box-sizing: border-box;
 }
 
+
 html,
 body {
+
   margin: 0;
   padding: 0;
+
   width: 100%;
   height: 100%;
+
   overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
   background: #111;
+
 }
+
+
+/* =====================================================
+   GAME
+===================================================== */
 
 #game {
+
   position: relative;
+
   width: 100vw;
   height: 100vh;
+
   overflow: hidden;
+
   background: #111;
+
 }
 
 
-/* =========================================
+/* =====================================================
    CAMERA
-========================================= */
+===================================================== */
 
 #video {
+
   position: absolute;
+
   inset: 0;
 
   width: 100%;
@@ -46,62 +76,82 @@ body {
 
   object-fit: cover;
 
-  transform: scaleX(-1);
+  transform:
+    scaleX(-1);
 
   background: #000;
 
   z-index: 1;
+
 }
 
 
-/* =========================================
-   OVERLAY
-========================================= */
+/* =====================================================
+   OVERLAY VIDEO
+===================================================== */
 
 .dark-overlay {
+
   position: absolute;
+
   inset: 0;
 
   background:
     linear-gradient(
       to bottom,
-      rgba(0,0,0,.55),
-      rgba(0,0,0,.05) 35%,
-      rgba(0,0,0,.05) 65%,
-      rgba(0,0,0,.45)
+      rgba(0,0,0,.58),
+      rgba(0,0,0,.06) 34%,
+      rgba(0,0,0,.04) 65%,
+      rgba(0,0,0,.50)
     );
+
+  z-index: 2;
 
   pointer-events: none;
 
-  z-index: 2;
 }
 
 
-/* =========================================
+/* =====================================================
    3 ZONA
-========================================= */
+===================================================== */
 
 .zone-overlay {
+
   position: absolute;
+
   inset: 0;
 
   display: grid;
-  grid-template-columns: 42% 16% 42%;
+
+  grid-template-columns:
+    42% 16% 42%;
 
   z-index: 3;
 
   pointer-events: none;
+
 }
 
+
+/* KIRI */
+
 .zone-left {
-  background: rgba(40,215,85,.18);
+
+  background:
+    rgba(55,220,90,.19);
 
   border-right:
     4px dashed
-    rgba(255,255,255,.9);
+    rgba(255,255,255,.90);
+
 }
 
+
+/* TENGAH */
+
 .zone-middle {
+
   position: relative;
 
   background:
@@ -109,28 +159,35 @@ body {
 
   border-left:
     1px solid
-    rgba(255,255,255,.12);
+    rgba(255,255,255,.10);
 
   border-right:
     1px solid
-    rgba(255,255,255,.12);
+    rgba(255,255,255,.10);
+
 }
 
+
+/* KANAN */
+
 .zone-right {
+
   background:
-    rgba(235,65,65,.18);
+    rgba(240,65,65,.19);
 
   border-left:
     4px dashed
-    rgba(255,255,255,.9);
+    rgba(255,255,255,.90);
+
 }
 
 
-/* =========================================
+/* =====================================================
    STANDBY
-========================================= */
+===================================================== */
 
 .standby {
+
   position: absolute;
 
   top: 50%;
@@ -140,36 +197,47 @@ body {
     translate(-50%,-50%)
     rotate(-90deg);
 
-  padding: 8px 14px;
+  padding:
+    8px 14px;
 
-  border-radius: 10px;
+  border-radius:
+    10px;
 
   background:
     rgba(0,0,0,.45);
 
   color: white;
 
-  font-size: 17px;
+  font-size:
+    18px;
 
-  font-weight: 900;
+  font-weight:
+    900;
 
-  letter-spacing: 2px;
+  letter-spacing:
+    2px;
 
-  text-shadow: 2px 2px 5px #000;
+  text-shadow:
+    2px 2px 5px #000;
 
-  white-space: nowrap;
+  white-space:
+    nowrap;
+
 }
 
 
-/* =========================================
+/* =====================================================
    HEADER
-========================================= */
+===================================================== */
 
 .header {
+
   position: absolute;
 
   top: 12px;
+
   left: 18px;
+
   right: 18px;
 
   z-index: 20;
@@ -186,310 +254,140 @@ body {
 
   text-shadow:
     2px 2px 6px #000;
+
 }
+
 
 .title {
-  font-size: 34px;
-  font-weight: 900;
+
+  font-size:
+    34px;
+
+  font-weight:
+    900;
+
 }
+
 
 .info {
+
   display: flex;
-  gap: 8px;
+
+  gap:
+    8px;
+
 }
 
+
 .info-box {
+
   background:
     rgba(0,0,0,.58);
 
-  padding: 8px 14px;
+  padding:
+    8px 14px;
 
-  border-radius: 12px;
+  border-radius:
+    12px;
 
-  font-size: 18px;
+  font-size:
+    18px;
 
-  font-weight: 900;
+  font-weight:
+    900;
+
 }
 
 
-/* =========================================
+/* =====================================================
    STATUS
-========================================= */
+===================================================== */
 
-.camera-status {
+.status {
+
   position: absolute;
 
-  top: 60px;
+  top: 62px;
   left: 18px;
 
   z-index: 20;
 
+  padding:
+    7px 12px;
+
+  border-radius:
+    10px;
+
   background:
     rgba(0,0,0,.58);
 
   color: white;
 
-  padding: 6px 11px;
+  font-size:
+    14px;
 
-  border-radius: 9px;
+  font-weight:
+    bold;
 
-  font-size: 14px;
-
-  font-weight: bold;
 }
 
+
 .bgm-status {
+
   position: absolute;
 
-  top: 60px;
+  top: 62px;
   right: 18px;
 
   z-index: 20;
 
+  padding:
+    7px 12px;
+
+  border-radius:
+    10px;
+
   background:
     rgba(0,0,0,.58);
 
   color: white;
 
-  padding: 6px 11px;
+  font-size:
+    14px;
 
-  border-radius: 9px;
+  font-weight:
+    bold;
 
-  font-size: 14px;
-
-  font-weight: bold;
 }
 
 
-/* =========================================
+/* =====================================================
    QUESTION
-========================================= */
+===================================================== */
 
 .question-box {
+
   position: absolute;
 
   top: 95px;
+
   left: 50%;
 
   transform:
     translateX(-50%);
 
-  width: 70%;
-  max-width: 1100px;
+  width: 72%;
+
+  max-width:
+    1100px;
 
   z-index: 20;
-
-  padding: 17px 24px;
-
-  border-radius: 20px;
-
-  background:
-    rgba(255,255,255,.95);
-
-  text-align: center;
-
-  color: #172033;
-
-  box-shadow:
-    0 8px 25px rgba(0,0,0,.25);
-}
-
-.question-label {
-  margin-bottom: 6px;
-
-  font-size: 15px;
-
-  font-weight: 900;
-}
-
-.question {
-  font-size: 28px;
-
-  line-height: 1.3;
-
-  font-weight: 900;
-}
-
-
-/* =========================================
-   TIMER
-========================================= */
-
-.timer-area {
-  position: absolute;
-
-  top: 235px;
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  z-index: 20;
-
-  text-align: center;
-
-  color: white;
-
-  text-shadow:
-    2px 2px 7px #000;
-}
-
-.timer {
-  font-size: 50px;
-  font-weight: 900;
-}
-
-.progress-bg {
-  width: 420px;
-  max-width: 50vw;
-
-  height: 9px;
-
-  border-radius: 20px;
-
-  overflow: hidden;
-
-  background:
-    rgba(255,255,255,.35);
-}
-
-.progress {
-  width: 100%;
-  height: 100%;
-
-  background: #ffd447;
-}
-
-
-/* =========================================
-   PILIHAN
-========================================= */
-
-.choice {
-  position: absolute;
-
-  bottom: 27px;
-
-  z-index: 40;
-
-  width: 28%;
-  max-width: 430px;
-
-  min-height: 88px;
-
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  gap: 12px;
-
-  border-radius: 20px;
-
-  font-size: 29px;
-
-  font-weight: 900;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 8px 20px
-    rgba(0,0,0,.35);
-
-  transition: .18s;
-}
-
-.choice:hover {
-  transform: scale(1.03);
-}
-
-.choice-a {
-  left: 3%;
-
-  background:
-    rgba(35,210,75,.96);
-
-  color: #06210b;
-}
-
-.choice-b {
-  right: 3%;
-
-  background:
-    rgba(255,75,75,.96);
-
-  color: #3a0505;
-}
-
-.choice-tag {
-  width: 52px;
-  height: 52px;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  background: white;
-
-  font-size: 27px;
-
-  font-weight: 900;
-}
-
-.choice.selected {
-  outline:
-    7px solid white;
-
-  transform:
-    scale(1.06);
-}
-
-.choice.correct {
-  background:
-    #15e442 !important;
-
-  color: #042009;
-}
-
-.choice.wrong {
-  background:
-    #ff2525 !important;
-
-  color: white;
-}
-
-.choice.dim {
-  filter: brightness(.42);
-}
-
-
-/* =========================================
-   FEEDBACK
-========================================= */
-
-.feedback {
-  position: absolute;
-
-  left: 50%;
-  bottom: 135px;
-
-  transform:
-    translateX(-50%);
-
-  z-index: 45;
-
-  width: 40%;
-  max-width: 700px;
-
-  min-height: 62px;
 
   padding:
-    12px 18px;
+    18px 26px;
 
-  border-radius: 17px;
+  border-radius:
+    21px;
 
   background:
     rgba(255,255,255,.95);
@@ -497,240 +395,729 @@ body {
   color:
     #172033;
 
-  text-align: center;
+  text-align:
+    center;
 
-  font-size: 18px;
+  box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.25);
 
-  font-weight: bold;
+}
+
+
+.question-label {
+
+  margin-bottom:
+    7px;
+
+  font-size:
+    15px;
+
+  font-weight:
+    900;
+
+}
+
+
+.question {
+
+  font-size:
+    29px;
+
+  line-height:
+    1.3;
+
+  font-weight:
+    900;
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+.timer-area {
+
+  position: absolute;
+
+  top:
+    238px;
+
+  left:
+    50%;
+
+  transform:
+    translateX(-50%);
+
+  z-index:
+    20;
+
+  text-align:
+    center;
+
+  color:
+    white;
+
+  text-shadow:
+    2px 2px 7px #000;
+
+}
+
+
+.timer {
+
+  font-size:
+    50px;
+
+  font-weight:
+    900;
+
+}
+
+
+.progress-bg {
+
+  width:
+    420px;
+
+  max-width:
+    50vw;
+
+  height:
+    9px;
+
+  overflow:
+    hidden;
+
+  border-radius:
+    20px;
+
+  background:
+    rgba(255,255,255,.35);
+
+}
+
+
+.progress {
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  background:
+    #ffd447;
+
+}
+
+
+/* =====================================================
+   A / B
+===================================================== */
+
+.choice {
+
+  position: absolute;
+
+  bottom:
+    24px;
+
+  z-index:
+    40;
+
+  width:
+    28%;
+
+  max-width:
+    440px;
+
+  min-height:
+    90px;
+
+  border-radius:
+    21px;
+
+  display:
+    flex;
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  gap:
+    12px;
+
+  font-size:
+    29px;
+
+  font-weight:
+    900;
+
+  cursor:
+    pointer;
+
+  box-shadow:
+    0 8px 20px
+    rgba(0,0,0,.35);
+
+  transition:
+    .18s;
+
+}
+
+
+.choice:hover {
+
+  transform:
+    scale(1.03);
+
+}
+
+
+.choice-a {
+
+  left:
+    3%;
+
+  background:
+    rgba(45,215,80,.96);
+
+  color:
+    #05220a;
+
+}
+
+
+.choice-b {
+
+  right:
+    3%;
+
+  background:
+    rgba(255,80,80,.96);
+
+  color:
+    #3b0505;
+
+}
+
+
+.choice-tag {
+
+  width:
+    52px;
+
+  height:
+    52px;
+
+  border-radius:
+    50%;
+
+  display:
+    flex;
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  background:
+    white;
+
+  font-size:
+    27px;
+
+  font-weight:
+    900;
+
+}
+
+
+.choice.selected {
+
+  outline:
+    7px solid white;
+
+  transform:
+    scale(1.06);
+
+}
+
+
+.choice.correct {
+
+  background:
+    #16e441 !important;
+
+  color:
+    #05220a;
+
+}
+
+
+.choice.wrong {
+
+  background:
+    #ff2222 !important;
+
+  color:
+    white;
+
+}
+
+
+.choice.dim {
+
+  filter:
+    brightness(.42);
+
+}
+
+
+.choice.disabled {
+
+  opacity:
+    .55;
+
+  cursor:
+    default;
+
+}
+
+
+/* =====================================================
+   FEEDBACK
+===================================================== */
+
+.feedback {
+
+  position: absolute;
+
+  left:
+    50%;
+
+  bottom:
+    135px;
+
+  transform:
+    translateX(-50%);
+
+  z-index:
+    45;
+
+  width:
+    42%;
+
+  max-width:
+    730px;
+
+  min-height:
+    64px;
+
+  padding:
+    12px 18px;
+
+  border-radius:
+    17px;
+
+  background:
+    rgba(255,255,255,.95);
+
+  color:
+    #172033;
+
+  text-align:
+    center;
+
+  font-size:
+    18px;
+
+  font-weight:
+    bold;
 
   box-shadow:
     0 6px 16px
-    rgba(0,0,0,.2);
+    rgba(0,0,0,.22);
+
 }
 
 
-/* =========================================
-   CONTROL GURU
-========================================= */
+/* =====================================================
+   KONTROL GURU
+===================================================== */
 
 .controls {
+
   position: absolute;
 
-  left: 50%;
-  bottom: 5px;
+  left:
+    50%;
+
+  bottom:
+    5px;
 
   transform:
     translateX(-50%);
 
-  z-index: 50;
+  z-index:
+    50;
 
-  display: flex;
+  display:
+    flex;
 
-  gap: 6px;
+  gap:
+    6px;
+
 }
 
-.control-btn {
-  border: none;
 
-  padding: 6px 12px;
+.btn {
 
-  border-radius: 8px;
+  border:
+    none;
 
-  font-size: 13px;
+  padding:
+    7px 12px;
 
-  font-weight: bold;
+  border-radius:
+    8px;
 
-  cursor: pointer;
+  font-size:
+    13px;
+
+  font-weight:
+    bold;
+
+  cursor:
+    pointer;
+
 }
+
 
 .camera-btn {
-  background: #4285f4;
-  color: white;
+
+  background:
+    #4285f4;
+
+  color:
+    white;
+
 }
+
+
+.camera-btn:disabled {
+
+  opacity:
+    .65;
+
+}
+
 
 .reveal-btn {
-  background: #ffd447;
-  color: #332500;
+
+  background:
+    #ffd447;
+
+  color:
+    #332500;
+
 }
+
 
 .next-btn {
-  display: none;
 
-  background: #4285f4;
+  display:
+    none;
 
-  color: white;
+  background:
+    #4285f4;
+
+  color:
+    white;
+
 }
 
+
 .mute-btn {
+
   background:
     rgba(0,0,0,.65);
 
-  color: white;
+  color:
+    white;
+
 }
 
 
-/* =========================================
+.restart-btn {
+
+  background:
+    rgba(0,0,0,.65);
+
+  color:
+    white;
+
+}
+
+
+/* =====================================================
    FULLSCREEN
-========================================= */
+===================================================== */
 
-.fullscreen {
-  position: absolute;
+.fullscreen-btn {
 
-  top: 60px;
-  left: 50%;
+  position:
+    absolute;
+
+  top:
+    62px;
+
+  left:
+    50%;
 
   transform:
     translateX(-50%);
 
-  z-index: 50;
+  z-index:
+    50;
 
-  padding: 5px 10px;
+  border:
+    none;
 
-  border: none;
+  border-radius:
+    8px;
 
-  border-radius: 8px;
+  padding:
+    5px 10px;
 
   background:
     rgba(0,0,0,.5);
 
-  color: white;
+  color:
+    white;
 
-  font-size: 12px;
+  font-size:
+    12px;
 
-  font-weight: bold;
+  font-weight:
+    bold;
 
-  cursor: pointer;
+  cursor:
+    pointer;
+
 }
 
 
-/* =========================================
+/* =====================================================
    COUNTDOWN
-========================================= */
+===================================================== */
 
 .countdown {
-  position: absolute;
 
-  inset: 0;
+  position:
+    absolute;
 
-  z-index: 100;
+  inset:
+    0;
 
-  display: none;
+  z-index:
+    100;
 
-  align-items: center;
+  display:
+    none;
 
-  justify-content: center;
+  align-items:
+    center;
+
+  justify-content:
+    center;
 
   background:
-    rgba(5,15,28,.72);
+    rgba(5,15,28,.70);
+
 }
 
+
 .count-number {
-  font-size: 180px;
 
-  font-weight: 900;
+  font-size:
+    180px;
 
-  color: white;
+  font-weight:
+    900;
+
+  color:
+    white;
 
   text-shadow:
     0 8px 25px #000;
+
 }
 
 
-/* =========================================
-   FINISH
-========================================= */
+/* =====================================================
+   FINAL
+===================================================== */
 
 .finish {
-  position: absolute;
 
-  inset: 0;
+  position:
+    absolute;
 
-  z-index: 200;
+  inset:
+    0;
 
-  display: none;
+  z-index:
+    200;
 
-  align-items: center;
+  display:
+    none;
 
-  justify-content: center;
+  align-items:
+    center;
 
-  background: #176542;
+  justify-content:
+    center;
 
-  color: white;
+  background:
+    #176542;
 
-  text-align: center;
+  color:
+    white;
+
+  text-align:
+    center;
+
 }
 
-.finish-box {
-  padding: 50px;
 
-  border-radius: 30px;
+.finish-box {
+
+  padding:
+    50px;
+
+  border-radius:
+    30px;
 
   background:
     rgba(0,0,0,.22);
+
 }
+
 
 .finish-title {
-  font-size: 48px;
-  font-weight: 900;
+
+  font-size:
+    48px;
+
+  font-weight:
+    900;
+
 }
+
 
 .final-score {
-  font-size: 82px;
-  font-weight: 900;
 
-  margin: 18px 0;
+  margin:
+    18px 0;
+
+  font-size:
+    82px;
+
+  font-weight:
+    900;
+
 }
+
 
 .play-again {
-  border: none;
 
-  padding: 16px 30px;
+  border:
+    none;
 
-  border-radius: 14px;
+  padding:
+    16px 30px;
 
-  font-size: 23px;
+  border-radius:
+    14px;
 
-  font-weight: bold;
+  font-size:
+    23px;
 
-  cursor: pointer;
+  font-weight:
+    bold;
+
+  cursor:
+    pointer;
+
 }
 
 
-/* =========================================
+/* =====================================================
    RESPONSIVE
-========================================= */
+===================================================== */
 
 @media(max-width:900px) {
 
   .title {
-    font-size: 27px;
+    font-size:
+      27px;
   }
 
   .question-box {
-    width: 90%;
-    top: 80px;
+    width:
+      90%;
+
+    top:
+      80px;
   }
 
   .question {
-    font-size: 21px;
+    font-size:
+      21px;
   }
 
   .choice {
-    width: 34%;
-    min-height: 75px;
-    font-size: 21px;
+    width:
+      34%;
+
+    min-height:
+      75px;
+
+    font-size:
+      21px;
   }
 
   .choice-tag {
-    width: 42px;
-    height: 42px;
-    font-size: 21px;
+    width:
+      42px;
+
+    height:
+      42px;
+
+    font-size:
+      21px;
   }
 
   .feedback {
-    width: 55%;
-    bottom: 118px;
-    font-size: 15px;
+    width:
+      55%;
+
+    bottom:
+      118px;
+
+    font-size:
+      15px;
+  }
+
+  .standby {
+    font-size:
+      13px;
   }
 
 }
@@ -746,9 +1133,9 @@ body {
 <div id="game">
 
 
-<!-- ==================================================
-     VIDEO
-================================================== -->
+<!-- =================================================
+     CAMERA
+================================================= -->
 
 <video
   id="video"
@@ -760,9 +1147,9 @@ body {
 <div class="dark-overlay"></div>
 
 
-<!-- ==================================================
-     PEMBAGI 3 ZONA
-================================================== -->
+<!-- =================================================
+     3 ZONA
+================================================= -->
 
 <div class="zone-overlay">
 
@@ -781,9 +1168,9 @@ body {
 </div>
 
 
-<!-- ==================================================
+<!-- =================================================
      HEADER
-================================================== -->
+================================================= -->
 
 <div class="header">
 
@@ -795,15 +1182,20 @@ body {
   <div class="info">
 
     <div class="info-box">
+
       SOAL
       <span id="number">0</span>
       /
       <span id="total">0</span>
+
     </div>
 
+
     <div class="info-box">
+
       ⭐
       <span id="score">0</span>
+
     </div>
 
   </div>
@@ -811,9 +1203,13 @@ body {
 </div>
 
 
+<!-- =================================================
+     STATUS
+================================================= -->
+
 <div
   id="cameraStatus"
-  class="camera-status">
+  class="status">
 
   🔴 KAMERA BELUM AKTIF
 
@@ -829,14 +1225,16 @@ body {
 </div>
 
 
-<!-- ==================================================
+<!-- =================================================
      SOAL
-================================================== -->
+================================================= -->
 
 <div class="question-box">
 
   <div class="question-label">
+
     🧠 BACA • PIKIRKAN • JUMP!
+
   </div>
 
 
@@ -851,9 +1249,9 @@ body {
 </div>
 
 
-<!-- ==================================================
+<!-- =================================================
      TIMER
-================================================== -->
+================================================= -->
 
 <div class="timer-area">
 
@@ -871,7 +1269,6 @@ body {
     <div
       id="progress"
       class="progress">
-
     </div>
 
   </div>
@@ -879,9 +1276,9 @@ body {
 </div>
 
 
-<!-- ==================================================
+<!-- =================================================
      A
-================================================== -->
+================================================= -->
 
 <div
   id="choiceA"
@@ -891,14 +1288,16 @@ body {
     A
   </div>
 
-  SENILAI
+  <div>
+    SENILAI
+  </div>
 
 </div>
 
 
-<!-- ==================================================
+<!-- =================================================
      B
-================================================== -->
+================================================= -->
 
 <div
   id="choiceB"
@@ -908,14 +1307,16 @@ body {
     B
   </div>
 
-  BERBALIK NILAI
+  <div>
+    BERBALIK NILAI
+  </div>
 
 </div>
 
 
-<!-- ==================================================
+<!-- =================================================
      FEEDBACK
-================================================== -->
+================================================= -->
 
 <div
   id="feedback"
@@ -926,15 +1327,16 @@ body {
 </div>
 
 
-<!-- ==================================================
-     KONTROL
-================================================== -->
+<!-- =================================================
+     KONTROL GURU
+================================================= -->
 
 <div class="controls">
 
+
   <button
     id="cameraBtn"
-    class="control-btn camera-btn">
+    class="btn camera-btn">
 
     🎥 KAMERA
 
@@ -943,7 +1345,7 @@ body {
 
   <button
     id="revealBtn"
-    class="control-btn reveal-btn"
+    class="btn reveal-btn"
     disabled>
 
     👀 LIHAT JAWABAN
@@ -953,7 +1355,7 @@ body {
 
   <button
     id="nextBtn"
-    class="control-btn next-btn">
+    class="btn next-btn">
 
     ➡️ NEXT
 
@@ -962,31 +1364,40 @@ body {
 
   <button
     id="muteBtn"
-    class="control-btn mute-btn">
+    class="btn mute-btn">
 
     🔊 BGM
+
+  </button>
+
+
+  <button
+    id="restartBtn"
+    class="btn restart-btn">
+
+    🔄 ULANGI
 
   </button>
 
 </div>
 
 
-<!-- ==================================================
+<!-- =================================================
      FULLSCREEN
-================================================== -->
+================================================= -->
 
 <button
   id="fullscreenBtn"
-  class="fullscreen">
+  class="fullscreen-btn">
 
   ⛶ FULLSCREEN
 
 </button>
 
 
-<!-- ==================================================
+<!-- =================================================
      COUNTDOWN
-================================================== -->
+================================================= -->
 
 <div
   id="countdown"
@@ -1003,9 +1414,9 @@ body {
 </div>
 
 
-<!-- ==================================================
+<!-- =================================================
      FINISH
-================================================== -->
+================================================= -->
 
 <div
   id="finish"
@@ -1014,7 +1425,9 @@ body {
   <div class="finish-box">
 
     <div class="finish-title">
+
       🏆 RATIO JUMP SELESAI!
+
     </div>
 
 
@@ -1033,6 +1446,7 @@ body {
         font-size:28px;
         font-weight:bold;
       ">
+
     </div>
 
 
@@ -1058,18 +1472,17 @@ body {
 <script>
 
 
-/* ==================================================
-   URL APPS SCRIPT
-   INI URL YANG BARU BU LAILY KIRIM
-================================================== */
+/* =================================================
+   APPS SCRIPT URL
+================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxoP3_605xuQQb3Rb0uwGPDNLHBq6Xdju3TYYIzom_XovINiPxofhUTeEF20_K8mDFb/exec";
 
 
-/* ==================================================
-   DATA
-================================================== */
+/* =================================================
+   GAME DATA
+================================================= */
 
 let questions = [];
 
@@ -1085,148 +1498,113 @@ let timerInterval = null;
 
 let countdownInterval = null;
 
-let bgmTimer = null;
+let gameStarted = false;
 
-let bgmStep = 0;
+let roundRunning = false;
 
-let bgmOn = true;
+
+/* =================================================
+   AUDIO DATA
+================================================= */
 
 let audioCtx = null;
 
 let masterGain = null;
 
+let bgmTimer = null;
 
-/* ==================================================
+let bgmOn = true;
+
+let bgmStep = 0;
+
+
+/* =================================================
    ELEMENT
-================================================== */
+================================================= */
 
 const video =
-document.getElementById(
-  "video"
-);
+  document.getElementById("video");
 
 const cameraBtn =
-document.getElementById(
-  "cameraBtn"
-);
+  document.getElementById("cameraBtn");
 
 const cameraStatus =
-document.getElementById(
-  "cameraStatus"
-);
-
-const questionEl =
-document.getElementById(
-  "question"
-);
-
-const numberEl =
-document.getElementById(
-  "number"
-);
-
-const totalEl =
-document.getElementById(
-  "total"
-);
-
-const scoreEl =
-document.getElementById(
-  "score"
-);
-
-const timerEl =
-document.getElementById(
-  "timer"
-);
-
-const progressEl =
-document.getElementById(
-  "progress"
-);
-
-const feedbackEl =
-document.getElementById(
-  "feedback"
-);
-
-const choiceA =
-document.getElementById(
-  "choiceA"
-);
-
-const choiceB =
-document.getElementById(
-  "choiceB"
-);
-
-const revealBtn =
-document.getElementById(
-  "revealBtn"
-);
-
-const nextBtn =
-document.getElementById(
-  "nextBtn"
-);
-
-const restartBtn =
-document.getElementById(
-  "restartBtn"
-);
-
-const countdown =
-document.getElementById(
-  "countdown"
-);
-
-const countNumber =
-document.getElementById(
-  "countNumber"
-);
-
-const finish =
-document.getElementById(
-  "finish"
-);
-
-const finalScore =
-document.getElementById(
-  "finalScore"
-);
-
-const finalMessage =
-document.getElementById(
-  "finalMessage"
-);
-
-const playAgain =
-document.getElementById(
-  "playAgain"
-);
-
-const muteBtn =
-document.getElementById(
-  "muteBtn"
-);
+  document.getElementById("cameraStatus");
 
 const bgmStatus =
-document.getElementById(
-  "bgmStatus"
-);
+  document.getElementById("bgmStatus");
+
+const questionEl =
+  document.getElementById("question");
+
+const numberEl =
+  document.getElementById("number");
+
+const totalEl =
+  document.getElementById("total");
+
+const scoreEl =
+  document.getElementById("score");
+
+const timerEl =
+  document.getElementById("timer");
+
+const progressEl =
+  document.getElementById("progress");
+
+const feedbackEl =
+  document.getElementById("feedback");
+
+const choiceA =
+  document.getElementById("choiceA");
+
+const choiceB =
+  document.getElementById("choiceB");
+
+const revealBtn =
+  document.getElementById("revealBtn");
+
+const nextBtn =
+  document.getElementById("nextBtn");
+
+const restartBtn =
+  document.getElementById("restartBtn");
+
+const countdown =
+  document.getElementById("countdown");
+
+const countNumber =
+  document.getElementById("countNumber");
+
+const finish =
+  document.getElementById("finish");
+
+const finalScore =
+  document.getElementById("finalScore");
+
+const finalMessage =
+  document.getElementById("finalMessage");
+
+const playAgain =
+  document.getElementById("playAgain");
+
+const muteBtn =
+  document.getElementById("muteBtn");
+
+const fullscreenBtn =
+  document.getElementById("fullscreenBtn");
 
 
-/* ==================================================
-   AUDIO
-================================================== */
+/* =================================================
+   AUDIO INIT
+================================================= */
 
 function initAudio() {
 
   if (audioCtx) {
 
     if (
-      audioCtx.state ===
-      "suspended"
+      audioCtx.state === "suspended"
     ) {
 
       audioCtx.resume();
@@ -1243,7 +1621,11 @@ function initAudio() {
     window.webkitAudioContext;
 
 
-  if (!AC) return;
+  if (!AC) {
+
+    return;
+
+  }
 
 
   audioCtx =
@@ -1264,6 +1646,10 @@ function initAudio() {
 
 }
 
+
+/* =================================================
+   BASIC TONE
+================================================= */
 
 function tone(
   frequency,
@@ -1291,7 +1677,8 @@ function tone(
 
 
   osc.type =
-    type || "sine";
+    type ||
+    "sine";
 
 
   osc.frequency.value =
@@ -1318,9 +1705,7 @@ function tone(
 
   osc.connect(gain);
 
-  gain.connect(
-    masterGain
-  );
+  gain.connect(masterGain);
 
 
   osc.start();
@@ -1334,19 +1719,34 @@ function tone(
 }
 
 
-/* ==================================================
-   BACKSOUND
-================================================== */
+/* =================================================
+   BGM
+================================================= */
 
 function startBGM() {
 
-  if (!bgmOn) return;
+  if (!bgmOn) {
+
+    return;
+
+  }
+
 
   initAudio();
 
-  if (!audioCtx) return;
 
-  if (bgmTimer) return;
+  if (!audioCtx) {
+
+    return;
+
+  }
+
+
+  if (bgmTimer) {
+
+    return;
+
+  }
 
 
   const melody = [
@@ -1355,6 +1755,7 @@ function startBGM() {
     659.25,
     783.99,
     659.25,
+
     587.33,
     698.46,
     880.00,
@@ -1369,6 +1770,7 @@ function startBGM() {
     130.81,
     146.83,
     146.83,
+
     174.61,
     174.61,
     155.56,
@@ -1377,12 +1779,17 @@ function startBGM() {
   ];
 
 
-  bgmStep = 0;
+  bgmStep =
+    0;
 
 
-  function step() {
+  function playStep() {
 
-    if (!bgmOn) return;
+    if (!bgmOn) {
+
+      return;
+
+    }
 
 
     tone(
@@ -1391,7 +1798,7 @@ function startBGM() {
         melody.length
       ],
       0.35,
-      0.035,
+      0.032,
       "sine"
     );
 
@@ -1405,8 +1812,8 @@ function startBGM() {
           bgmStep %
           bass.length
         ],
-        0.4,
-        0.02,
+        0.40,
+        0.020,
         "triangle"
       );
 
@@ -1418,17 +1825,21 @@ function startBGM() {
   }
 
 
-  step();
+  playStep();
 
 
   bgmTimer =
     setInterval(
-      step,
+      playStep,
       470
     );
 
 }
 
+
+/* =================================================
+   STOP BGM
+================================================= */
 
 function stopBGM() {
 
@@ -1438,16 +1849,17 @@ function stopBGM() {
       bgmTimer
     );
 
-    bgmTimer = null;
+    bgmTimer =
+      null;
 
   }
 
 }
 
 
-/* ==================================================
+/* =================================================
    YEAY
-================================================== */
+================================================= */
 
 function playYeay() {
 
@@ -1478,9 +1890,9 @@ function playYeay() {
       1;
 
 
-    speechSynthesis.cancel();
+    window.speechSynthesis.cancel();
 
-    speechSynthesis.speak(
+    window.speechSynthesis.speak(
       speech
     );
 
@@ -1488,10 +1900,12 @@ function playYeay() {
 
 
   const notes = [
+
     523.25,
     659.25,
     783.99,
     1046.50
+
   ];
 
 
@@ -1521,16 +1935,20 @@ function playYeay() {
 }
 
 
-/* ==================================================
+/* =================================================
    BOOM
-================================================== */
+================================================= */
 
 function playBoom() {
 
   initAudio();
 
 
-  if (!audioCtx) return;
+  if (!audioCtx) {
+
+    return;
+
+  }
 
 
   const osc =
@@ -1592,9 +2010,9 @@ function playBoom() {
 }
 
 
-/* ==================================================
+/* =================================================
    KAMERA
-================================================== */
+================================================= */
 
 cameraBtn.addEventListener(
   "click",
@@ -1605,9 +2023,20 @@ cameraBtn.addEventListener(
 
     try {
 
+      if (
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+      ) {
+
+        throw new Error(
+          "Browser tidak mendukung akses kamera."
+        );
+
+      }
+
+
       const stream =
-        await navigator
-          .mediaDevices
+        await navigator.mediaDevices
           .getUserMedia({
 
             video: true,
@@ -1632,16 +2061,38 @@ cameraBtn.addEventListener(
       cameraBtn.disabled =
         true;
 
+
+      /*
+        Baru setelah kamera aktif,
+        mulai ronde.
+      */
+
+      if (
+        questions.length > 0 &&
+        !gameStarted
+      ) {
+
+        gameStarted =
+          true;
+
+        showQuestion();
+
+      }
+
     }
 
+
     catch(error) {
+
+      console.error(error);
+
 
       cameraStatus.innerText =
         "🔴 KAMERA GAGAL";
 
 
       alert(
-        "Kamera tidak dapat dibuka.\n\n" +
+        "Kamera tidak dapat dibuka:\n\n" +
         error.message
       );
 
@@ -1651,13 +2102,37 @@ cameraBtn.addEventListener(
 );
 
 
-/* ==================================================
+/* =================================================
+   FULLSCREEN
+================================================= */
+
+fullscreenBtn.addEventListener(
+  "click",
+  function() {
+
+    if (
+      document.documentElement.requestFullscreen
+    ) {
+
+      document.documentElement
+        .requestFullscreen();
+
+    }
+
+  }
+);
+
+
+/* =================================================
    BGM BUTTON
-================================================== */
+================================================= */
 
 muteBtn.addEventListener(
   "click",
   function() {
+
+    initAudio();
+
 
     bgmOn =
       !bgmOn;
@@ -1671,7 +2146,12 @@ muteBtn.addEventListener(
       bgmStatus.innerText =
         "🔊 BGM ON";
 
-      startBGM();
+
+      if (roundRunning) {
+
+        startBGM();
+
+      }
 
     }
 
@@ -1691,35 +2171,9 @@ muteBtn.addEventListener(
 );
 
 
-/* ==================================================
-   FULLSCREEN
-================================================== */
-
-document
-  .getElementById(
-    "fullscreenBtn"
-  )
-  .addEventListener(
-    "click",
-    function() {
-
-      if (
-        document.documentElement
-          .requestFullscreen
-      ) {
-
-        document.documentElement
-          .requestFullscreen();
-
-      }
-
-    }
-  );
-
-
-/* ==================================================
-   AMBIL SOAL LANGSUNG DARI APPS SCRIPT
-================================================== */
+/* =================================================
+   LOAD SOAL
+================================================= */
 
 function loadQuestions() {
 
@@ -1735,68 +2189,76 @@ function loadQuestions() {
   window[callbackName] =
     function(data) {
 
-      try {
+      delete window[callbackName];
 
-        if (
-          !Array.isArray(data)
-        ) {
 
-          throw new Error(
-            "Data soal tidak berbentuk daftar."
+      if (
+        !Array.isArray(data)
+      ) {
+
+        questionEl.innerText =
+          "❌ Data soal tidak valid.";
+
+        return;
+
+      }
+
+
+      questions =
+        data;
+
+
+      if (
+        questions.length === 0
+      ) {
+
+        questionEl.innerText =
+          "❌ Bank soal kosong.";
+
+        return;
+
+      }
+
+
+      questions.sort(
+        function() {
+
+          return (
+            Math.random() -
+            0.5
           );
 
         }
+      );
 
 
-        questions =
-          data;
+      totalEl.innerText =
+        questions.length;
 
 
-        if (
-          questions.length === 0
-        ) {
+      /*
+        Jangan mulai countdown sebelum
+        kamera aktif.
+      */
 
-          questionEl.innerText =
-            "❌ Bank soal kosong.";
-
-          return;
-
-        }
-
-
-        questions =
-          questions.sort(
-            function() {
-
-              return (
-                Math.random() -
-                0.5
-              );
-
-            }
-          );
-
-
-        totalEl.innerText =
-          questions.length;
-
+      if (
+        gameStarted
+      ) {
 
         showQuestion();
 
       }
 
-      catch(error) {
-
-        console.error(error);
+      else {
 
         questionEl.innerText =
-          "❌ Data soal tidak dapat dibaca.";
+          questions[0].soal;
+
+
+        feedbackEl.innerHTML =
+          "🎥 Klik <b>KAMERA</b> untuk memulai.";
 
       }
-
-
-      // Bersihkan global callback
-      delete window[callbackName];
 
     };
 
@@ -1820,43 +2282,17 @@ function loadQuestions() {
     true;
 
 
-  script.onload =
-    function() {
-
-      setTimeout(
-        function() {
-
-          if (
-            window[
-              callbackName
-            ]
-          ) {
-
-            questionEl.innerText =
-              "❌ Soal tidak diterima dari Apps Script.";
-
-            delete window[
-              callbackName
-            ];
-
-          }
-
-        },
-        5000
-      );
-
-    };
-
-
   script.onerror =
     function() {
 
-      questionEl.innerText =
-        "❌ Gagal terhubung ke Google Spreadsheet.";
+      delete window[callbackName];
 
-      delete window[
-        callbackName
-      ];
+
+      questionEl.innerText =
+        "❌ Gagal menghubungkan ke Spreadsheet.";
+
+      feedbackEl.innerHTML =
+        "Periksa deployment Web App Apps Script.";
 
     };
 
@@ -1868,9 +2304,9 @@ function loadQuestions() {
 }
 
 
-/* ==================================================
-   TAMPILKAN SOAL
-================================================== */
+/* =================================================
+   SHOW QUESTION
+================================================= */
 
 function showQuestion() {
 
@@ -1883,11 +2319,30 @@ function showQuestion() {
   );
 
 
+  stopBGM();
+
+
+  if (
+    currentIndex >=
+    questions.length
+  ) {
+
+    finishGame();
+
+    return;
+
+  }
+
+
   selectedAnswer =
     null;
 
 
   revealed =
+    false;
+
+
+  roundRunning =
     false;
 
 
@@ -1904,7 +2359,7 @@ function showQuestion() {
 
 
   timerEl.innerText =
-    "-";
+    "5";
 
 
   progressEl.style.width =
@@ -1935,16 +2390,16 @@ function showQuestion() {
     "none";
 
 
-  mulaiCountdown();
+  countdownStart();
 
 }
 
 
-/* ==================================================
+/* =================================================
    COUNTDOWN
-================================================== */
+================================================= */
 
-function mulaiCountdown() {
+function countdownStart() {
 
   countdown.style.display =
     "flex";
@@ -2007,14 +2462,24 @@ function mulaiCountdown() {
 }
 
 
-/* ==================================================
+/* =================================================
    TIMER
-================================================== */
+================================================= */
 
 function mulaiTimer() {
 
   let time =
     5;
+
+
+  roundRunning =
+    true;
+
+
+  initAudio();
+
+
+  startBGM();
 
 
   timerEl.innerText =
@@ -2023,9 +2488,6 @@ function mulaiTimer() {
 
   progressEl.style.width =
     "100%";
-
-
-  startBGM();
 
 
   timerInterval =
@@ -2039,9 +2501,7 @@ function mulaiTimer() {
         timerEl.innerText =
           Math.max(
             0,
-            Math.ceil(
-              time
-            )
+            Math.ceil(time)
           );
 
 
@@ -2059,6 +2519,10 @@ function mulaiTimer() {
           clearInterval(
             timerInterval
           );
+
+
+          roundRunning =
+            false;
 
 
           stopBGM();
@@ -2089,9 +2553,9 @@ function mulaiTimer() {
 }
 
 
-/* ==================================================
+/* =================================================
    PILIH A
-================================================== */
+================================================= */
 
 choiceA.addEventListener(
   "click",
@@ -2128,9 +2592,9 @@ choiceA.addEventListener(
 );
 
 
-/* ==================================================
+/* =================================================
    PILIH B
-================================================== */
+================================================= */
 
 choiceB.addEventListener(
   "click",
@@ -2167,9 +2631,9 @@ choiceB.addEventListener(
 );
 
 
-/* ==================================================
+/* =================================================
    REVEAL
-================================================== */
+================================================= */
 
 revealBtn.addEventListener(
   "click",
@@ -2189,7 +2653,7 @@ revealBtn.addEventListener(
     ) {
 
       feedbackEl.innerHTML =
-        "⚠️ Pilih A atau B terlebih dahulu.";
+        "⚠️ Klik A atau B sesuai pilihan siswa.";
 
       return;
 
@@ -2213,11 +2677,17 @@ revealBtn.addEventListener(
 
 
     const benar =
-      selectedAnswer ===
-      q.jawaban;
+      normalizeAnswer(
+        selectedAnswer
+      ) ===
+      normalizeAnswer(
+        q.jawaban
+      );
 
 
-    if (benar) {
+    if (
+      benar
+    ) {
 
       score +=
         Number(q.poin) ||
@@ -2268,6 +2738,7 @@ revealBtn.addEventListener(
 
     }
 
+
     else {
 
       playBoom();
@@ -2304,7 +2775,9 @@ revealBtn.addEventListener(
       feedbackEl.innerHTML =
         "💥 <b>BOOM!</b><br>" +
         "Jawaban benar: <b>" +
-        q.jawaban +
+        normalizeAnswer(
+          q.jawaban
+        ) +
         "</b><br><br>" +
         q.pembahasan;
 
@@ -2329,9 +2802,40 @@ revealBtn.addEventListener(
 );
 
 
-/* ==================================================
-   SIMPAN HASIL LANGSUNG KE APPS SCRIPT
-================================================== */
+/* =================================================
+   NORMALISASI JAWABAN
+================================================= */
+
+function normalizeAnswer(
+  value
+) {
+
+  const text =
+    String(value || "")
+      .trim()
+      .toUpperCase();
+
+
+  if (
+    text ===
+    "BERBALIK" ||
+    text ===
+    "BERBALIK NILAI"
+  ) {
+
+    return "BERBALIK NILAI";
+
+  }
+
+
+  return "SENILAI";
+
+}
+
+
+/* =================================================
+   SIMPAN HASIL
+================================================= */
 
 function saveResult(
   q,
@@ -2392,7 +2896,9 @@ function saveResult(
 
     "&jawabanBenar=" +
     encodeURIComponent(
-      q.jawaban
+      normalizeAnswer(
+        q.jawaban
+      )
     ) +
 
     "&status=" +
@@ -2413,6 +2919,10 @@ function saveResult(
     Date.now();
 
 
+  script.async =
+    true;
+
+
   document.body.appendChild(
     script
   );
@@ -2420,9 +2930,9 @@ function saveResult(
 }
 
 
-/* ==================================================
+/* =================================================
    NEXT
-================================================== */
+================================================= */
 
 nextBtn.addEventListener(
   "click",
@@ -2449,21 +2959,71 @@ nextBtn.addEventListener(
 );
 
 
-/* ==================================================
+/* =================================================
    FINISH
-================================================== */
+================================================= */
 
 function finishGame() {
-
-  stopBGM();
 
   clearInterval(
     timerInterval
   );
 
+
   clearInterval(
     countdownInterval
   );
+
+
+  stopBGM();
+
+
+  document.querySelector(
+    ".header"
+  ).style.display =
+    "none";
+
+
+  document.querySelector(
+    ".question-box"
+  ).style.display =
+    "none";
+
+
+  document.querySelector(
+    ".timer-area"
+  ).style.display =
+    "none";
+
+
+  document.querySelector(
+    ".feedback"
+  ).style.display =
+    "none";
+
+
+  document.querySelector(
+    ".choice-a"
+  ).style.display =
+    "none";
+
+
+  document.querySelector(
+    ".choice-b"
+  ).style.display =
+    "none";
+
+
+  document.querySelector(
+    ".controls"
+  ).style.display =
+    "none";
+
+
+  document.querySelector(
+    ".fullscreen-btn"
+  ).style.display =
+    "none";
 
 
   finish.style.display =
@@ -2475,7 +3035,7 @@ function finishGame() {
     " POIN";
 
 
-  const max =
+  const maxScore =
     questions.reduce(
       function(
         total,
@@ -2483,7 +3043,10 @@ function finishGame() {
       ) {
 
         return total +
-          (Number(q.poin) || 10);
+          (
+            Number(q.poin) ||
+            10
+          );
 
       },
       0
@@ -2491,10 +3054,10 @@ function finishGame() {
 
 
   const accuracy =
-    max > 0
+    maxScore > 0
       ? Math.round(
           score /
-          max *
+          maxScore *
           100
         )
       : 0;
@@ -2505,7 +3068,7 @@ function finishGame() {
   ) {
 
     finalMessage.innerText =
-      "🏆 RATIO MASTER!";
+      "🏆 RATIO MASTER! Luar biasa!";
 
   }
 
@@ -2514,7 +3077,7 @@ function finishGame() {
   ) {
 
     finalMessage.innerText =
-      "⭐ RATIO EXPERT!";
+      "⭐ RATIO EXPERT! Mantap!";
 
   }
 
@@ -2523,7 +3086,7 @@ function finishGame() {
   ) {
 
     finalMessage.innerText =
-      "💪 RATIO EXPLORER!";
+      "💪 RATIO EXPLORER! Terus berlatih!";
 
   }
 
@@ -2537,62 +3100,39 @@ function finishGame() {
 }
 
 
-/* ==================================================
+/* =================================================
    RESTART
-================================================== */
+================================================= */
 
+restartBtn.addEventListener(
+  "click",
+  function() {
 
+    location.reload();
 
-// ==========================================
-// TOMBOL ULANGI
-// ==========================================
-
-const restartBtn =
-  document.getElementById("restartBtn");
-
-if (restartBtn) {
-
-  restartBtn.addEventListener(
-    "click",
-    function() {
-
-      location.reload();
-
-    }
-  );
-
-}
-
-
-// ==========================================
-// TOMBOL MAIN LAGI
-// ==========================================
-
-const playAgain =
-  document.getElementById("playAgain");
-
-if (playAgain) {
-
-  playAgain.addEventListener(
-    "click",
-    function() {
-
-      location.reload();
-
-    }
-  );
-
-}
+  }
 );
 
 
-/* ==================================================
-   MULAI LOAD
-================================================== */
+playAgain.addEventListener(
+  "click",
+  function() {
+
+    location.reload();
+
+  }
+);
+
+
+/* =================================================
+   START
+================================================= */
 
 loadQuestions();
 
 </script>
 
+
 </body>
+
 </html>
