@@ -1,48 +1,72 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>RATIO JUMP</title>
 
 <style>
 
+/* =====================================================
+   RESET
+===================================================== */
+
 * {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
+
   margin: 0;
   padding: 0;
+
   width: 100%;
   height: 100%;
+
   overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
   background: #111;
+
 }
 
 
-/* =========================================
-   LAYOUT UTAMA
-========================================= */
+/* =====================================================
+   GAME UTAMA
+===================================================== */
 
 .game {
+
   position: relative;
+
   width: 100vw;
   height: 100vh;
+
   overflow: hidden;
+
   background: #111;
+
 }
 
 
-/* =========================================
+/* =====================================================
    KAMERA FULL SCREEN
-========================================= */
+===================================================== */
 
 #video {
+
   position: absolute;
+
   inset: 0;
 
   width: 100%;
@@ -50,216 +74,366 @@ html, body {
 
   object-fit: cover;
 
-  /* mirror seperti kamera HP/laptop */
-  transform: scaleX(-1);
+  transform:
+    scaleX(-1);
 
   background: #000;
+
+  z-index: 1;
+
 }
 
 
-/* sedikit overlay supaya tulisan terbaca */
+/* =====================================================
+   OVERLAY GELAP TIPIS
+===================================================== */
 
 .dark-overlay {
+
   position: absolute;
+
   inset: 0;
 
   background:
     linear-gradient(
       to bottom,
-      rgba(0,0,0,0.65),
-      rgba(0,0,0,0.08) 30%,
-      rgba(0,0,0,0.05) 65%,
-      rgba(0,0,0,0.55)
+      rgba(0,0,0,0.60),
+      rgba(0,0,0,0.04) 28%,
+      rgba(0,0,0,0.03) 68%,
+      rgba(0,0,0,0.48)
     );
 
   pointer-events: none;
+
+  z-index: 2;
+
 }
 
 
-/* =========================================
+/* =====================================================
+   PEMBAGI 3 ZONA
+===================================================== */
+
+.zone-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    42% 16% 42%;
+
+  pointer-events: none;
+
+  z-index: 3;
+
+}
+
+
+/* KIRI */
+
+.zone-left {
+
+  height: 100%;
+
+  background:
+    rgba(60,220,100,0.20);
+
+  border-right:
+    4px dashed
+    rgba(255,255,255,0.90);
+
+}
+
+
+/* TENGAH */
+
+.zone-center {
+
+  position: relative;
+
+  height: 100%;
+
+  background:
+    rgba(255,255,255,0.06);
+
+}
+
+
+/* KANAN */
+
+.zone-right {
+
+  height: 100%;
+
+  background:
+    rgba(240,70,70,0.20);
+
+  border-left:
+    4px dashed
+    rgba(255,255,255,0.90);
+
+}
+
+
+/* LABEL STANDBY */
+
+.standby-label {
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform:
+    translate(-50%,-50%)
+    rotate(-90deg);
+
+  padding:
+    8px 13px;
+
+  border-radius:
+    10px;
+
+  background:
+    rgba(0,0,0,0.38);
+
+  color: white;
+
+  font-size: 18px;
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
+
+  text-shadow:
+    2px 2px 6px rgba(0,0,0,0.8);
+
+  white-space: nowrap;
+
+}
+
+
+/* =====================================================
    HEADER
-========================================= */
+===================================================== */
 
 .header {
 
   position: absolute;
 
-  top: 15px;
-  left: 20px;
-  right: 20px;
+  top: 14px;
+  left: 18px;
+  right: 18px;
 
   display: flex;
 
-  justify-content: space-between;
+  justify-content:
+    space-between;
 
-  align-items: center;
+  align-items:
+    center;
 
-  z-index: 10;
+  z-index: 20;
 
   color: white;
 
   text-shadow:
-    2px 2px 6px rgba(0,0,0,0.8);
+    2px 2px 6px
+    rgba(0,0,0,0.85);
+
 }
+
 
 .logo {
 
   font-size: 34px;
 
   font-weight: 900;
+
 }
+
 
 .info {
 
   display: flex;
 
   gap: 10px;
+
 }
+
 
 .info-box {
 
   background:
-    rgba(0,0,0,0.55);
+    rgba(0,0,0,0.58);
 
-  padding: 9px 16px;
+  padding:
+    9px 15px;
 
-  border-radius: 14px;
+  border-radius:
+    13px;
 
-  font-size: 20px;
+  font-size: 19px;
 
   font-weight: 900;
+
 }
 
 
-/* =========================================
-   CAMERA STATUS
-========================================= */
+/* =====================================================
+   STATUS KAMERA
+===================================================== */
 
 .camera-status {
 
   position: absolute;
 
-  top: 75px;
-  left: 20px;
+  top: 66px;
+  left: 18px;
 
-  z-index: 10;
+  z-index: 20;
+
+  padding:
+    7px 12px;
+
+  border-radius:
+    10px;
 
   background:
-    rgba(0,0,0,0.55);
+    rgba(0,0,0,0.58);
 
   color: white;
 
-  padding: 8px 14px;
-
-  border-radius: 12px;
-
-  font-size: 16px;
+  font-size: 15px;
 
   font-weight: bold;
+
 }
 
 
-/* =========================================
+/* =====================================================
    PERTANYAAN
-========================================= */
+===================================================== */
 
 .question-box {
 
   position: absolute;
 
-  top: 100px;
+  top: 105px;
 
   left: 50%;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
-  width: 82%;
+  width: 76%;
 
-  max-width: 1200px;
+  max-width: 1100px;
 
-  z-index: 10;
+  z-index: 20;
 
   background:
-    rgba(255,255,255,0.94);
+    rgba(255,255,255,0.95);
 
-  color: #172033;
+  color:
+    #172033;
 
-  padding: 20px 30px;
+  padding:
+    18px 26px;
 
-  border-radius: 22px;
+  border-radius:
+    20px;
 
-  text-align: center;
+  text-align:
+    center;
 
   box-shadow:
-    0 8px 25px rgba(0,0,0,0.25);
+    0 8px 24px
+    rgba(0,0,0,0.25);
 
 }
+
 
 .question-label {
 
-  font-size: 17px;
+  font-size: 16px;
 
   font-weight: 900;
 
-  margin-bottom: 8px;
+  margin-bottom: 7px;
+
 }
+
 
 .question {
 
-  font-size: 30px;
+  font-size: 28px;
 
   line-height: 1.3;
 
   font-weight: 900;
+
 }
 
 
-/* =========================================
+/* =====================================================
    TIMER
-========================================= */
+===================================================== */
 
 .timer-area {
 
   position: absolute;
 
-  top: 265px;
+  top: 255px;
 
   left: 50%;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
-  z-index: 10;
+  z-index: 20;
 
-  text-align: center;
+  text-align:
+    center;
 
   color: white;
 
   text-shadow:
-    2px 2px 6px rgba(0,0,0,0.9);
+    2px 2px 7px
+    rgba(0,0,0,0.9);
+
 }
+
 
 .timer {
 
-  font-size: 52px;
+  font-size: 48px;
 
   font-weight: 900;
+
 }
+
 
 .progress-bg {
 
-  width: 500px;
+  width: 420px;
 
-  max-width: 65vw;
+  max-width: 55vw;
 
-  height: 10px;
+  height: 9px;
 
   background:
-    rgba(255,255,255,0.4);
+    rgba(255,255,255,0.38);
 
   border-radius: 20px;
 
   overflow: hidden;
+
 }
+
 
 .progress {
 
@@ -267,136 +441,157 @@ html, body {
 
   height: 100%;
 
-  background: #ffd447;
+  background:
+    #ffd447;
+
 }
 
 
-/* =========================================
+/* =====================================================
    PILIHAN A / B
-========================================= */
+===================================================== */
 
 .choice {
 
   position: absolute;
 
-  bottom: 30px;
+  bottom: 28px;
 
-  z-index: 15;
+  z-index: 30;
 
-  width: 40%;
+  width: 35%;
 
-  max-width: 560px;
+  max-width: 500px;
 
-  min-height: 130px;
+  min-height: 92px;
 
-  border-radius: 25px;
+  border-radius: 20px;
 
   display: flex;
 
-  align-items: center;
+  justify-content:
+    center;
 
-  justify-content: center;
+  align-items:
+    center;
 
-  gap: 15px;
+  gap: 12px;
 
-  font-size: 38px;
+  font-size: 31px;
 
   font-weight: 900;
 
   cursor: pointer;
 
   box-shadow:
-    0 10px 25px rgba(0,0,0,0.3);
+    0 8px 20px
+    rgba(0,0,0,0.35);
 
   transition:
     transform 0.15s,
     filter 0.15s;
+
 }
+
 
 .choice:hover {
 
-  transform: scale(1.03);
+  transform:
+    scale(1.03);
+
 }
+
 
 .choice-a {
 
   left: 3%;
 
   background:
-    rgba(77, 220, 100, 0.95);
+    rgba(49,211,82,0.96);
 
-  color: #08200d;
+  color:
+    #08200d;
+
 }
+
 
 .choice-b {
 
   right: 3%;
 
   background:
-    rgba(255, 97, 97, 0.95);
+    rgba(255,89,89,0.96);
 
-  color: #380606;
+  color:
+    #3b0606;
+
 }
+
 
 .choice-tag {
 
-  width: 70px;
+  width: 54px;
 
-  height: 70px;
+  height: 54px;
 
   border-radius: 50%;
 
-  background: rgba(255,255,255,0.95);
+  background: white;
 
   display: flex;
 
-  align-items: center;
-
   justify-content: center;
 
-  font-size: 38px;
+  align-items: center;
 
-  font-weight: 900;
+  font-size: 28px;
+
 }
+
 
 .choice.selected {
 
   outline:
-    8px solid white;
+    7px solid white;
 
   transform:
     scale(1.05);
 
 }
 
+
 .choice.correct {
 
   background:
-    #25d94b !important;
+    #19e347 !important;
 
-  color: #062b0d;
+  color:
+    #06220a;
 
 }
+
 
 .choice.wrong {
 
   background:
-    #ff3535 !important;
+    #ff2525 !important;
 
   color: white;
 
 }
 
+
 .choice.dim {
 
-  filter: brightness(0.55);
+  filter:
+    brightness(0.45);
 
 }
 
 
-/* =========================================
+/* =====================================================
    FEEDBACK
-========================================= */
+===================================================== */
 
 .feedback {
 
@@ -404,40 +599,48 @@ html, body {
 
   left: 50%;
 
-  bottom: 185px;
+  bottom: 138px;
 
   transform:
     translateX(-50%);
 
-  z-index: 20;
+  z-index: 35;
 
-  width: 65%;
+  width: 45%;
 
-  max-width: 850px;
+  max-width: 720px;
 
-  min-height: 80px;
+  min-height: 68px;
 
   background:
     rgba(255,255,255,0.95);
 
-  border-radius: 20px;
+  color:
+    #172033;
 
-  padding: 16px 25px;
+  padding:
+    13px 20px;
 
-  text-align: center;
+  border-radius:
+    18px;
 
-  font-size: 22px;
+  text-align:
+    center;
+
+  font-size: 19px;
 
   font-weight: bold;
 
-  color: #172033;
+  box-shadow:
+    0 6px 16px
+    rgba(0,0,0,0.20);
 
 }
 
 
-/* =========================================
-   TOMBOL KONTROL GURU
-========================================= */
+/* =====================================================
+   KONTROL GURU
+===================================================== */
 
 .teacher-controls {
 
@@ -447,59 +650,129 @@ html, body {
 
   left: 50%;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
-  z-index: 25;
+  z-index: 40;
 
   display: flex;
 
-  gap: 8px;
+  gap: 7px;
 
 }
+
 
 .control-btn {
 
   border: none;
 
-  padding: 8px 14px;
+  padding:
+    7px 12px;
 
-  border-radius: 10px;
+  border-radius:
+    9px;
 
-  font-size: 15px;
+  font-size:
+    14px;
 
-  font-weight: bold;
+  font-weight:
+    bold;
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
 }
 
-.reveal {
-
-  background: #ffd447;
-
-}
-
-.next {
-
-  background: #4285f4;
-
-  color: white;
-
-  display: none;
-}
 
 .camera-btn {
 
-  background: #4285f4;
+  background:
+    #4285f4;
 
-  color: white;
+  color:
+    white;
 
 }
 
 
-/* =========================================
+.reveal {
+
+  background:
+    #ffd447;
+
+}
+
+
+.next {
+
+  display:
+    none;
+
+  background:
+    #4285f4;
+
+  color:
+    white;
+
+}
+
+
+.restart {
+
+  background:
+    #777;
+
+  color:
+    white;
+
+}
+
+
+/* =====================================================
+   FULLSCREEN
+===================================================== */
+
+.fullscreen-btn {
+
+  position: absolute;
+
+  top: 65px;
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 40;
+
+  border: none;
+
+  background:
+    rgba(0,0,0,0.50);
+
+  color: white;
+
+  padding:
+    6px 11px;
+
+  border-radius:
+    9px;
+
+  font-size:
+    13px;
+
+  font-weight:
+    bold;
+
+  cursor:
+    pointer;
+
+}
+
+
+/* =====================================================
    COUNTDOWN
-========================================= */
+===================================================== */
 
 .countdown {
 
@@ -511,32 +784,38 @@ html, body {
 
   display: none;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
   background:
     rgba(10,20,35,0.68);
 
 }
 
+
 .count-number {
 
   color: white;
 
-  font-size: 170px;
+  font-size:
+    180px;
 
-  font-weight: 900;
+  font-weight:
+    900;
 
   text-shadow:
-    0 8px 25px rgba(0,0,0,0.7);
+    0 8px 25px
+    rgba(0,0,0,0.70);
 
 }
 
 
-/* =========================================
+/* =====================================================
    FINAL
-========================================= */
+===================================================== */
 
 .finish {
 
@@ -548,9 +827,11 @@ html, body {
 
   display: none;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
   background:
     linear-gradient(
@@ -561,125 +842,114 @@ html, body {
 
   color: white;
 
-  text-align: center;
+  text-align:
+    center;
 
 }
+
 
 .finish-content {
 
   background:
     rgba(0,0,0,0.25);
 
-  padding: 50px;
+  padding:
+    50px;
 
-  border-radius: 30px;
+  border-radius:
+    30px;
 
 }
+
 
 .finish-title {
 
-  font-size: 50px;
+  font-size:
+    48px;
 
-  font-weight: 900;
+  font-weight:
+    900;
 
 }
+
 
 .final-score {
 
-  font-size: 85px;
+  font-size:
+    82px;
 
-  font-weight: 900;
+  font-weight:
+    900;
 
-  margin: 20px 0;
+  margin:
+    20px 0;
+
 }
+
 
 .play-again {
 
   border: none;
 
-  padding: 18px 35px;
+  padding:
+    16px 30px;
 
-  border-radius: 15px;
+  border-radius:
+    15px;
 
-  font-size: 25px;
+  font-size:
+    23px;
 
-  font-weight: bold;
+  font-weight:
+    bold;
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
 }
 
 
-/* =========================================
+/* =====================================================
    RESPONSIVE
-========================================= */
+===================================================== */
 
-@media(max-width:900px) {
+@media(max-width: 900px) {
 
   .logo {
-    font-size: 28px;
+    font-size: 27px;
   }
 
   .question-box {
-    width: 94%;
-    top: 85px;
+    width: 92%;
+    top: 82px;
   }
 
   .question {
-    font-size: 23px;
+    font-size: 21px;
   }
 
   .choice {
-    width: 43%;
-    min-height: 95px;
-    font-size: 24px;
+    width: 38%;
+    min-height: 80px;
+    font-size: 22px;
   }
 
   .choice-tag {
-    width: 50px;
-    height: 50px;
-    font-size: 25px;
+    width: 43px;
+    height: 43px;
+    font-size: 22px;
   }
 
   .feedback {
-    width: 85%;
-    bottom: 145px;
-    font-size: 18px;
+    width: 65%;
+    bottom: 120px;
+    font-size: 16px;
   }
 
-}
+  .standby-label {
+    font-size: 13px;
+  }
 
-
-/* =========================================
-   FULLSCREEN
-========================================= */
-
-.fullscreen-btn {
-
-  position: absolute;
-
-  top: 18px;
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  z-index: 30;
-
-  border: none;
-
-  background:
-    rgba(0,0,0,0.55);
-
-  color: white;
-
-  padding: 8px 14px;
-
-  border-radius: 10px;
-
-  cursor: pointer;
-
-  font-weight: bold;
 }
 
 </style>
@@ -689,12 +959,13 @@ html, body {
 
 <body>
 
+
 <div class="game">
 
 
-  <!-- ====================================
-       VIDEO KAMERA
-  ===================================== -->
+  <!-- ==========================================
+       KAMERA
+  =========================================== -->
 
   <video
     id="video"
@@ -703,19 +974,44 @@ html, body {
   </video>
 
 
+  <!-- OVERLAY GELAP -->
+
   <div class="dark-overlay"></div>
 
 
-  <!-- ====================================
+  <!-- ==========================================
+       PEMBAGI 3 ZONA
+  =========================================== -->
+
+  <div class="zone-overlay">
+
+    <div class="zone-left">
+    </div>
+
+
+    <div class="zone-center">
+
+      <div class="standby-label">
+        STANDBY
+      </div>
+
+    </div>
+
+
+    <div class="zone-right">
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
        HEADER
-  ===================================== -->
+  =========================================== -->
 
   <div class="header">
 
     <div class="logo">
-
       🔎 RATIO JUMP
-
     </div>
 
 
@@ -724,9 +1020,13 @@ html, body {
       <div class="info-box">
 
         SOAL
-        <span id="number">1</span>
+        <span id="number">
+          1
+        </span>
         /
-        <span id="total">0</span>
+        <span id="total">
+          0
+        </span>
 
       </div>
 
@@ -734,7 +1034,9 @@ html, body {
       <div class="info-box">
 
         ⭐
-        <span id="score">0</span>
+        <span id="score">
+          0
+        </span>
 
       </div>
 
@@ -743,22 +1045,22 @@ html, body {
   </div>
 
 
-  <!-- ====================================
-       CAMERA STATUS
-  ===================================== -->
+  <!-- ==========================================
+       STATUS
+  =========================================== -->
 
   <div
     id="cameraStatus"
     class="camera-status">
 
-    🔴 Kamera belum aktif
+    🔴 KAMERA BELUM AKTIF
 
   </div>
 
 
-  <!-- ====================================
+  <!-- ==========================================
        QUESTION
-  ===================================== -->
+  =========================================== -->
 
   <div class="question-box">
 
@@ -780,9 +1082,9 @@ html, body {
   </div>
 
 
-  <!-- ====================================
+  <!-- ==========================================
        TIMER
-  ===================================== -->
+  =========================================== -->
 
   <div class="timer-area">
 
@@ -800,6 +1102,7 @@ html, body {
       <div
         id="progress"
         class="progress">
+
       </div>
 
     </div>
@@ -807,9 +1110,9 @@ html, body {
   </div>
 
 
-  <!-- ====================================
+  <!-- ==========================================
        PILIHAN A
-  ===================================== -->
+  ========================================== -->
 
   <div
     id="choiceA"
@@ -826,9 +1129,9 @@ html, body {
   </div>
 
 
-  <!-- ====================================
+  <!-- ==========================================
        PILIHAN B
-  ===================================== -->
+  ========================================== -->
 
   <div
     id="choiceB"
@@ -845,9 +1148,9 @@ html, body {
   </div>
 
 
-  <!-- ====================================
+  <!-- ==========================================
        FEEDBACK
-  ===================================== -->
+  ========================================== -->
 
   <div
     id="feedback"
@@ -858,9 +1161,9 @@ html, body {
   </div>
 
 
-  <!-- ====================================
+  <!-- ==========================================
        KONTROL GURU
-  ===================================== -->
+  ========================================== -->
 
   <div class="teacher-controls">
 
@@ -893,7 +1196,7 @@ html, body {
 
     <button
       id="restartBtn"
-      class="control-btn">
+      class="control-btn restart">
 
       🔄 ULANGI
 
@@ -902,9 +1205,9 @@ html, body {
   </div>
 
 
-  <!-- ====================================
+  <!-- ==========================================
        FULLSCREEN
-  ===================================== -->
+  ========================================== -->
 
   <button
     id="fullscreenBtn"
@@ -915,9 +1218,9 @@ html, body {
   </button>
 
 
-  <!-- ====================================
+  <!-- ==========================================
        COUNTDOWN
-  ===================================== -->
+  ========================================== -->
 
   <div
     id="countdown"
@@ -934,9 +1237,9 @@ html, body {
   </div>
 
 
-  <!-- ====================================
+  <!-- ==========================================
        FINISH
-  ===================================== -->
+  ========================================== -->
 
   <div
     id="finish"
@@ -992,17 +1295,17 @@ html, body {
 <script>
 
 
-/* =========================================
-   URL APPS SCRIPT
-========================================= */
+/* =====================================================
+   URL GOOGLE APPS SCRIPT
+===================================================== */
 
 const API_URL =
 "https://script.google.com/a/macros/guru.smp.belajar.id/s/AKfycbxoP3_605xuQQb3Rb0uwGPDNLHBq6Xdju3TYYIzom_XovINiPxofhUTeEF20_K8mDFb/exec";
 
 
-/* =========================================
+/* =====================================================
    DATA
-========================================= */
+===================================================== */
 
 let questions = [];
 
@@ -1016,10 +1319,12 @@ let revealed = false;
 
 let timerInterval = null;
 
+let countdownInterval = null;
 
-/* =========================================
+
+/* =====================================================
    ELEMENT
-========================================= */
+===================================================== */
 
 const video =
 document.getElementById("video");
@@ -1088,9 +1393,9 @@ const fullscreenBtn =
 document.getElementById("fullscreenBtn");
 
 
-/* =========================================
-   AKTIFKAN KAMERA
-========================================= */
+/* =====================================================
+   KAMERA
+===================================================== */
 
 cameraBtn.addEventListener(
   "click",
@@ -1140,7 +1445,7 @@ cameraBtn.addEventListener(
     catch(error) {
 
       cameraStatus.innerHTML =
-        "🔴 Kamera tidak dapat diakses";
+        "🔴 KAMERA GAGAL";
 
 
       alert(
@@ -1154,9 +1459,9 @@ cameraBtn.addEventListener(
 );
 
 
-/* =========================================
+/* =====================================================
    FULLSCREEN
-========================================= */
+===================================================== */
 
 fullscreenBtn.addEventListener(
   "click",
@@ -1175,9 +1480,9 @@ fullscreenBtn.addEventListener(
 );
 
 
-/* =========================================
-   AMBIL SOAL DARI SPREADSHEET
-========================================= */
+/* =====================================================
+   AMBIL SOAL
+===================================================== */
 
 function loadQuestions() {
 
@@ -1209,8 +1514,9 @@ function loadQuestions() {
       // Acak soal
 
       questions.sort(
-        () =>
-          Math.random() - 0.5
+        function() {
+          return Math.random() - 0.5;
+        }
       );
 
 
@@ -1219,17 +1525,6 @@ function loadQuestions() {
 
 
       showQuestion();
-
-    };
-
-
-  window.questionError =
-    function(error) {
-
-      console.error(error);
-
-      questionEl.innerText =
-        "❌ Gagal mengambil soal.";
 
     };
 
@@ -1250,7 +1545,7 @@ function loadQuestions() {
     function() {
 
       questionEl.innerText =
-        "❌ Koneksi ke Spreadsheet gagal.";
+        "❌ Gagal mengambil soal.";
 
     };
 
@@ -1262,9 +1557,9 @@ function loadQuestions() {
 }
 
 
-/* =========================================
+/* =====================================================
    TAMPILKAN SOAL
-========================================= */
+===================================================== */
 
 function showQuestion() {
 
@@ -1272,17 +1567,20 @@ function showQuestion() {
     timerInterval
   );
 
-
-  const q =
-    questions[currentIndex];
+  clearInterval(
+    countdownInterval
+  );
 
 
   selectedAnswer =
     null;
 
-
   revealed =
     false;
+
+
+  const q =
+    questions[currentIndex];
 
 
   numberEl.innerText =
@@ -1302,7 +1600,7 @@ function showQuestion() {
 
 
   feedbackEl.innerHTML =
-    "Bersiap untuk <b>JUMP!</b> 🏃";
+    "Bersiap... 🏃";
 
 
   choiceA.className =
@@ -1326,9 +1624,9 @@ function showQuestion() {
 }
 
 
-/* =========================================
+/* =====================================================
    COUNTDOWN
-========================================= */
+===================================================== */
 
 function mulaiCountdown() {
 
@@ -1344,7 +1642,7 @@ function mulaiCountdown() {
     n;
 
 
-  const interval =
+  countdownInterval =
     setInterval(
       function() {
 
@@ -1361,7 +1659,7 @@ function mulaiCountdown() {
         else {
 
           clearInterval(
-            interval
+            countdownInterval
           );
 
 
@@ -1390,9 +1688,9 @@ function mulaiCountdown() {
 }
 
 
-/* =========================================
+/* =====================================================
    TIMER
-========================================= */
+===================================================== */
 
 function mulaiTimer() {
 
@@ -1441,8 +1739,8 @@ function mulaiTimer() {
 
 
           feedbackEl.innerHTML =
-            "🏃 <b>Anak-anak sudah memilih!</b><br>" +
-            "Klik A atau B sesuai posisi mereka.";
+            "🏃 Anak-anak sudah memilih sisi!<br>" +
+            "Bu Laily pilih <b>A</b> atau <b>B</b>.";
 
         }
 
@@ -1453,9 +1751,9 @@ function mulaiTimer() {
 }
 
 
-/* =========================================
+/* =====================================================
    PILIH A
-========================================= */
+===================================================== */
 
 choiceA.addEventListener(
   "click",
@@ -1485,9 +1783,9 @@ choiceA.addEventListener(
 );
 
 
-/* =========================================
+/* =====================================================
    PILIH B
-========================================= */
+===================================================== */
 
 choiceB.addEventListener(
   "click",
@@ -1517,9 +1815,9 @@ choiceB.addEventListener(
 );
 
 
-/* =========================================
+/* =====================================================
    LIHAT JAWABAN
-========================================= */
+===================================================== */
 
 revealBtn.addEventListener(
   "click",
@@ -1531,20 +1829,20 @@ revealBtn.addEventListener(
     if(!selectedAnswer) {
 
       feedbackEl.innerHTML =
-        "⚠️ Pilih A atau B sesuai posisi siswa terlebih dahulu.";
+        "⚠️ Bu Laily pilih A atau B terlebih dahulu.";
 
       return;
 
     }
 
 
+    revealed =
+      true;
+
+
     clearInterval(
       timerInterval
     );
-
-
-    revealed =
-      true;
 
 
     const q =
@@ -1556,9 +1854,9 @@ revealBtn.addEventListener(
       q.jawaban;
 
 
-    /* ==========================
-       BENAR
-    ========================== */
+    /* ==============================
+       JAWABAN BENAR
+    ============================== */
 
     if(benar) {
 
@@ -1608,9 +1906,9 @@ revealBtn.addEventListener(
     }
 
 
-    /* ==========================
-       SALAH
-    ========================== */
+    /* ==============================
+       JAWABAN SALAH
+    ============================== */
 
     else {
 
@@ -1670,9 +1968,9 @@ revealBtn.addEventListener(
 );
 
 
-/* =========================================
+/* =====================================================
    SIMPAN HASIL
-========================================= */
+===================================================== */
 
 function saveResult(
   q,
@@ -1684,7 +1982,7 @@ function saveResult(
     function(result) {
 
       console.log(
-        "Hasil tersimpan",
+        "Hasil tersimpan:",
         result
       );
 
@@ -1751,9 +2049,9 @@ function saveResult(
 }
 
 
-/* =========================================
+/* =====================================================
    NEXT
-========================================= */
+===================================================== */
 
 nextBtn.addEventListener(
   "click",
@@ -1780,9 +2078,9 @@ nextBtn.addEventListener(
 );
 
 
-/* =========================================
+/* =====================================================
    FINISH
-========================================= */
+===================================================== */
 
 function finishGame() {
 
@@ -1859,36 +2157,38 @@ function finishGame() {
 }
 
 
-/* =========================================
+/* =====================================================
    RESTART
-========================================= */
-
-function restartGame() {
-
-  location.reload();
-
-}
-
+===================================================== */
 
 restartBtn.addEventListener(
   "click",
-  restartGame
+  function() {
+
+    location.reload();
+
+  }
 );
 
 
 playAgain.addEventListener(
   "click",
-  restartGame
+  function() {
+
+    location.reload();
+
+  }
 );
 
 
-/* =========================================
+/* =====================================================
    START
-========================================= */
+===================================================== */
 
 loadQuestions();
 
 </script>
+
 
 </body>
 </html>
