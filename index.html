@@ -49,24 +49,22 @@
       background: black;
     }
 
-    video,
-    canvas {
-      width: 100%;
-      display: block;
-    }
-
     video {
+      display: block;
+      width: 100%;
+      height: auto;
       transform: scaleX(-1);
     }
 
-  canvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
+    canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
     .zones {
       position: absolute;
       inset: 0;
@@ -480,30 +478,6 @@ function gambarPose(landmarks) {
     ctx.arc(
       x,
       y,
-      6,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.fill();
-  }
-}
-
-  ctx.fillStyle = "#00ff00";
-
-  for (const point of landmarks) {
-
-    const x =
-      point.x * canvas.width;
-
-    const y =
-      point.y * canvas.height;
-
-    ctx.beginPath();
-
-    ctx.arc(
-      x,
-      y,
       5,
       0,
       Math.PI * 2
@@ -526,296 +500,6 @@ startBtn.addEventListener(
 );
 
 </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-  <title>RATIO JUMP CAMERA</title>
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #eef4f8;
-      text-align: center;
-    }
-
-    .header {
-      background: white;
-      padding: 20px;
-    }
-
-    .header h1 {
-      margin: 0;
-      font-size: 42px;
-      color: #1f2937;
-    }
-
-    .header p {
-      font-size: 22px;
-      margin: 8px 0 0;
-      color: #555;
-    }
-
-    .camera-area {
-      position: relative;
-      width: 90%;
-      max-width: 1100px;
-      margin: 25px auto;
-      background: black;
-      border-radius: 25px;
-      overflow: hidden;
-    }
-
-    video {
-      display: block;
-      width: 100%;
-      height: auto;
-      transform: scaleX(-1);
-    }
-
-    .zones {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      grid-template-columns: 45% 10% 45%;
-      pointer-events: none;
-    }
-
-    .left-zone {
-      background: rgba(46, 204, 113, 0.18);
-      border-right: 3px dashed white;
-    }
-
-    .middle-zone {
-      background: rgba(255,255,255,0.08);
-    }
-
-    .right-zone {
-      background: rgba(231, 76, 60, 0.18);
-      border-left: 3px dashed white;
-    }
-
-    .labels {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 20px;
-      display: grid;
-      grid-template-columns: 45% 10% 45%;
-      pointer-events: none;
-    }
-
-    .label {
-      color: white;
-      font-size: 28px;
-      font-weight: bold;
-      text-shadow: 2px 2px 5px black;
-    }
-
-    .status {
-      background: white;
-      width: 90%;
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 20px;
-      font-size: 25px;
-      font-weight: bold;
-    }
-
-    button {
-      border: none;
-      border-radius: 18px;
-      padding: 20px 40px;
-      font-size: 27px;
-      font-weight: bold;
-      cursor: pointer;
-      background: #4285f4;
-      color: white;
-    }
-
-    button:hover {
-      transform: scale(1.03);
-    }
-
-    .instruction {
-      background: white;
-      width: 90%;
-      max-width: 900px;
-      margin: 20px auto 40px;
-      padding: 20px;
-      border-radius: 20px;
-      font-size: 21px;
-    }
-
-  </style>
-</head>
-
-<body>
-
-  <div class="header">
-
-    <h1>🔎 RATIO JUMP CAMERA</h1>
-
-    <p>
-      Senilai vs Berbalik Nilai
-    </p>
-
-  </div>
-
-
-  <div class="camera-area">
-
-    <video
-      id="video"
-      autoplay
-      playsinline>
-    </video>
-
-
-    <div class="zones">
-
-      <div class="left-zone"></div>
-
-      <div class="middle-zone"></div>
-
-      <div class="right-zone"></div>
-
-    </div>
-
-
-    <div class="labels">
-
-      <div class="label">
-        🟢 SENILAI
-      </div>
-
-      <div></div>
-
-      <div class="label">
-        🔴 BERBALIK NILAI
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div id="status" class="status">
-    📷 Kamera belum aktif.
-  </div>
-
-
-  <button id="startCamera">
-    🎥 AKTIFKAN KAMERA
-  </button>
-
-
-  <div class="instruction">
-
-    <b>Cara bermain nanti:</b>
-
-    <br><br>
-
-    🟢 Sisi kiri = SENILAI
-
-    <br>
-
-    🔴 Sisi kanan = BERBALIK NILAI
-
-    <br><br>
-
-    Untuk sekarang kita hanya mengetes kameranya dulu.
-
-  </div>
-
-
-  <script>
-
-    const video =
-      document.getElementById("video");
-
-    const status =
-      document.getElementById("status");
-
-    const button =
-      document.getElementById("startCamera");
-
-
-    button.addEventListener(
-      "click",
-      async function() {
-
-        status.innerHTML =
-          "⏳ Meminta izin kamera...";
-
-
-        try {
-
-          if (!navigator.mediaDevices ||
-              !navigator.mediaDevices.getUserMedia) {
-
-            throw new Error(
-              "Browser tidak mendukung akses kamera."
-            );
-
-          }
-
-
-          const stream =
-            await navigator.mediaDevices.getUserMedia({
-
-              video: {
-                facingMode: "user"
-              },
-
-              audio: false
-
-            });
-
-
-          video.srcObject =
-            stream;
-
-
-          status.innerHTML =
-            "✅ KAMERA AKTIF!";
-
-          button.style.display =
-            "none";
-
-
-        } catch (error) {
-
-          console.error(error);
-
-
-          status.innerHTML =
-            "❌ Kamera tidak dapat diakses.<br><br>" +
-            error.name +
-            "<br>" +
-            error.message;
-
-        }
-
-      }
-
-    );
-
-  </script>
 
 </body>
 </html>
