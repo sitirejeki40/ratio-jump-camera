@@ -2,6 +2,506 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ratio Jump - Body Detection</title>
+
+  <script type="module">
+    import {
+      PoseLandmarker,
+      FilesetResolver
+    } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/vision_bundle.mjs";
+
+    window.PoseLandmarker = PoseLandmarker;
+    window.FilesetResolver = FilesetResolver;
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #edf3f8;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin: 15px 0 5px;
+    }
+
+    .sub {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .camera-box {
+      position: relative;
+      width: 92%;
+      max-width: 1100px;
+      margin: auto;
+      border-radius: 24px;
+      overflow: hidden;
+      background: black;
+    }
+
+    video,
+    canvas {
+      width: 100%;
+      display: block;
+    }
+
+    video {
+      transform: scaleX(-1);
+    }
+
+    canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .zones {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 45% 10% 45%;
+      pointer-events: none;
+    }
+
+    .left-zone {
+      background: rgba(0, 180, 90, 0.16);
+      border-right: 3px dashed white;
+    }
+
+    .center-zone {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .right-zone {
+      background: rgba(220, 50, 50, 0.16);
+      border-left: 3px dashed white;
+    }
+
+    .labels {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 18px;
+      display: grid;
+      grid-template-columns: 45% 10% 45%;
+      pointer-events: none;
+    }
+
+    .label {
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px black;
+    }
+
+    .status {
+      margin: 20px auto;
+      width: 90%;
+      max-width: 900px;
+      padding: 20px;
+      background: white;
+      border-radius: 18px;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    button {
+      padding: 18px 35px;
+      font-size: 24px;
+      font-weight: bold;
+      border: none;
+      border-radius: 15px;
+      background: #4285f4;
+      color: white;
+      cursor: pointer;
+    }
+
+    #debug {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🔎 RATIO JUMP</h1>
+
+  <div class="sub">
+    Tes Deteksi Posisi Tubuh
+  </div>
+
+  <div class="camera-box">
+
+    <video id="video" autoplay playsinline></video>
+
+    <canvas id="canvas"></canvas>
+
+    <div class="zones">
+      <div class="left-zone"></div>
+      <div class="center-zone"></div>
+      <div class="right-zone"></div>
+    </div>
+
+    <div class="labels">
+
+      <div class="label">
+        🟢 SENILAI
+      </div>
+
+      <div></div>
+
+      <div class="label">
+        🔴 BERBALIK NILAI
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="status" class="status">
+    📷 Kamera belum aktif
+  </div>
+
+  <button id="startBtn">
+    🎥 AKTIFKAN DETEKSI TUBUH
+  </button>
+
+  <div id="debug">
+    Posisi tubuh: -
+  </div>
+
+
+<script>
+
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const statusBox = document.getElementById("status");
+const startBtn = document.getElementById("startBtn");
+const debugBox = document.getElementById("debug");
+
+let poseLandmarker = null;
+let lastVideoTime = -1;
+
+
+/* =====================================
+   MEMBUAT POSE LANDMARKER
+===================================== */
+
+async function createPoseLandmarker() {
+
+  statusBox.innerHTML =
+    "⏳ Menyiapkan deteksi tubuh...";
+
+  const vision =
+    await window.FilesetResolver.forVisionTasks(
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+    );
+
+  poseLandmarker =
+    await window.PoseLandmarker.createFromOptions(
+      vision,
+      {
+        baseOptions: {
+
+          modelAssetPath:
+            "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task",
+
+          delegate: "GPU"
+
+        },
+
+        runningMode: "VIDEO",
+
+        numPoses: 1,
+
+        minPoseDetectionConfidence: 0.5,
+
+        minPosePresenceConfidence: 0.5,
+
+        minTrackingConfidence: 0.5,
+
+        outputSegmentationMasks: false
+      }
+    );
+
+}
+
+
+/* =====================================
+   AKTIFKAN KAMERA
+===================================== */
+
+async function startCamera() {
+
+  try {
+
+    statusBox.innerHTML =
+      "⏳ Meminta izin kamera...";
+
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+
+        video: {
+          facingMode: "user"
+        },
+
+        audio: false
+
+      });
+
+    video.srcObject = stream;
+
+    await video.play();
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    await createPoseLandmarker();
+
+    statusBox.innerHTML =
+      "✅ DETEKSI TUBUH AKTIF";
+
+    startBtn.style.display =
+      "none";
+
+    requestAnimationFrame(detectPose);
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    statusBox.innerHTML =
+      "❌ Gagal mengaktifkan deteksi.<br><br>" +
+      error.name +
+      "<br>" +
+      error.message;
+
+  }
+
+}
+
+
+/* =====================================
+   DETEKSI POSE
+===================================== */
+
+function detectPose() {
+
+  if (
+    !poseLandmarker ||
+    video.readyState < 2
+  ) {
+
+    requestAnimationFrame(detectPose);
+
+    return;
+  }
+
+
+  if (
+    video.currentTime !== lastVideoTime
+  ) {
+
+    lastVideoTime =
+      video.currentTime;
+
+    const now =
+      performance.now();
+
+    const result =
+      poseLandmarker.detectForVideo(
+        video,
+        now
+      );
+
+    prosesHasil(result);
+
+  }
+
+  requestAnimationFrame(detectPose);
+
+}
+
+
+/* =====================================
+   MEMPROSES HASIL
+===================================== */
+
+function prosesHasil(result) {
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+
+  if (
+    !result.landmarks ||
+    result.landmarks.length === 0
+  ) {
+
+    statusBox.innerHTML =
+      "👤 Tubuh belum terdeteksi";
+
+    debugBox.innerText =
+      "Posisi tubuh: belum terdeteksi";
+
+    return;
+
+  }
+
+
+  const landmarks =
+    result.landmarks[0];
+
+
+  /*
+    Landmark:
+    11 = left shoulder
+    12 = right shoulder
+    23 = left hip
+    24 = right hip
+  */
+
+  const leftShoulder =
+    landmarks[11];
+
+  const rightShoulder =
+    landmarks[12];
+
+  const leftHip =
+    landmarks[23];
+
+  const rightHip =
+    landmarks[24];
+
+
+  const centerX =
+    (
+      leftShoulder.x +
+      rightShoulder.x +
+      leftHip.x +
+      rightHip.x
+    ) / 4;
+
+
+  /*
+    Karena kamera ditampilkan mirror,
+    balik koordinat X untuk menentukan posisi
+    sesuai tampilan layar.
+  */
+
+  const displayX =
+    1 - centerX;
+
+
+  const persen =
+    Math.round(displayX * 100);
+
+
+  debugBox.innerText =
+    "Posisi tubuh: " +
+    persen +
+    "%";
+
+
+  if (displayX < 0.45) {
+
+    statusBox.innerHTML =
+      "🟢 POSISI: SENILAI";
+
+  }
+
+  else if (displayX > 0.55) {
+
+    statusBox.innerHTML =
+      "🔴 POSISI: BERBALIK NILAI";
+
+  }
+
+  else {
+
+    statusBox.innerHTML =
+      "⚪ POSISI: TENGAH";
+
+  }
+
+
+  gambarPose(landmarks);
+
+}
+
+
+/* =====================================
+   GAMBAR TITIK TUBUH
+===================================== */
+
+function gambarPose(landmarks) {
+
+  ctx.fillStyle = "#00ff00";
+
+  for (const point of landmarks) {
+
+    const x =
+      point.x * canvas.width;
+
+    const y =
+      point.y * canvas.height;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x,
+      y,
+      5,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fill();
+
+  }
+
+}
+
+
+/* =====================================
+   START
+===================================== */
+
+startBtn.addEventListener(
+  "click",
+  startCamera
+);
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
 
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
