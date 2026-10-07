@@ -2,267 +2,877 @@
 <html lang="id">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ratio Jump Camera</title>
+<meta charset="UTF-8">
 
-  <script type="module">
-    import {
-      PoseLandmarker,
-      FilesetResolver,
-      DrawingUtils
-    } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.mjs";
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    window.PoseLandmarker = PoseLandmarker;
-    window.FilesetResolver = FilesetResolver;
-    window.DrawingUtils = DrawingUtils;
-  </script>
+<title>RATIO JUMP</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #edf3f8;
-      text-align: center;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    h1 {
-      margin: 15px 0 5px;
-      font-size: 40px;
-    }
+body {
 
-    .sub {
-      margin-bottom: 15px;
-      font-size: 20px;
-      color: #555;
-    }
+  margin: 0;
 
-    .camera-box {
-      position: relative;
-      width: 92%;
-      max-width: 1100px;
-      margin: auto;
-      overflow: hidden;
-      border-radius: 24px;
-      background: #000;
-    }
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
-    video {
-      display: block;
-      width: 100%;
-      height: auto;
-      transform: scaleX(-1);
-    }
+  background: #eef4f8;
 
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
+  color: #1f2937;
 
-    .zones {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      grid-template-columns: 45% 10% 45%;
-      pointer-events: none;
-    }
+}
 
-    .left-zone {
-      background: rgba(0, 180, 90, 0.16);
-      border-right: 3px dashed white;
-    }
+.app {
 
-    .center-zone {
-      background: rgba(255, 255, 255, 0.05);
-    }
+  width: 100%;
 
-    .right-zone {
-      background: rgba(220, 50, 50, 0.16);
-      border-left: 3px dashed white;
-    }
+  max-width: 1600px;
 
-    .labels {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 18px;
-      display: grid;
-      grid-template-columns: 45% 10% 45%;
-      pointer-events: none;
-    }
+  margin: auto;
 
-    .label {
-      color: white;
-      font-size: 28px;
-      font-weight: bold;
-      text-shadow: 2px 2px 6px #000;
-    }
+  padding: 20px;
 
-    .status {
-      width: 90%;
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      background: white;
-      border-radius: 18px;
-      font-size: 30px;
-      font-weight: bold;
-    }
+}
 
-    button {
-      padding: 20px 40px;
-      border: 0;
-      border-radius: 18px;
-      background: #4285f4;
-      color: white;
-      font-size: 26px;
-      font-weight: bold;
-      cursor: pointer;
-    }
 
-    button:disabled {
-      opacity: 0.6;
-    }
+/* =============================
+HEADER
+============================= */
 
-    #debug {
-      margin-top: 15px;
-      font-size: 20px;
-      color: #555;
-    }
-  </style>
+.header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 15px;
+
+}
+
+.title {
+
+  font-size: 42px;
+
+  font-weight: 900;
+
+}
+
+.info {
+
+  display: flex;
+
+  gap: 10px;
+
+}
+
+.badge {
+
+  background: white;
+
+  padding: 10px 18px;
+
+  border-radius: 14px;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+}
+
+
+/* =============================
+MAIN
+============================= */
+
+.main {
+
+  display: grid;
+
+  grid-template-columns:
+    28% 44% 28%;
+
+  gap: 15px;
+
+}
+
+
+/* =============================
+CHOICE AREA
+============================= */
+
+.choice {
+
+  min-height: 500px;
+
+  border-radius: 28px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 20px;
+
+  font-size: 44px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition: .2s;
+
+}
+
+.choice:hover {
+
+  transform: scale(1.02);
+
+}
+
+.left {
+
+  background: #baf2c0;
+
+}
+
+.right {
+
+  background: #ffb5b5;
+
+}
+
+.choice.selected {
+
+  outline:
+    8px solid #111827;
+
+  transform:
+    scale(1.03);
+
+}
+
+.choice.correct {
+
+  background:
+    #42d95c !important;
+
+}
+
+.choice.wrong {
+
+  background:
+    #ff5a5a !important;
+
+}
+
+
+/* =============================
+CENTER
+============================= */
+
+.center {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+
+}
+
+
+/* CAMERA */
+
+.camera {
+
+  position: relative;
+
+  background: black;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  min-height: 230px;
+
+}
+
+video {
+
+  width: 100%;
+
+  display: block;
+
+  transform:
+    scaleX(-1);
+
+}
+
+.camera-label {
+
+  position: absolute;
+
+  top: 10px;
+
+  left: 10px;
+
+  background:
+    rgba(0,0,0,.65);
+
+  color: white;
+
+  padding: 8px 12px;
+
+  border-radius: 10px;
+
+  font-weight: bold;
+
+}
+
+
+/* QUESTION */
+
+.question {
+
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 30px;
+
+  min-height: 220px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  font-size: 31px;
+
+  font-weight: 800;
+
+}
+
+
+/* =============================
+TIMER
+============================= */
+
+.timer {
+
+  text-align: center;
+
+  font-size: 42px;
+
+  font-weight: 900;
+
+}
+
+.progress-bg {
+
+  height: 12px;
+
+  background: #d8e0e8;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+}
+
+.progress {
+
+  height: 100%;
+
+  width: 100%;
+
+  background: #4285f4;
+
+}
+
+
+/* =============================
+BUTTON
+============================= */
+
+.actions {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+}
+
+button {
+
+  border: none;
+
+  border-radius: 15px;
+
+  padding: 16px 25px;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+}
+
+.cameraBtn {
+
+  background: #4285f4;
+
+  color: white;
+
+}
+
+.reveal {
+
+  background: #f2c94c;
+
+}
+
+.next {
+
+  display: none;
+
+  background: #4285f4;
+
+  color: white;
+
+}
+
+.restart {
+
+  background: #777;
+
+  color: white;
+
+}
+
+
+/* =============================
+FEEDBACK
+============================= */
+
+.feedback {
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 18px;
+
+  min-height: 100px;
+
+  text-align: center;
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+}
+
+
+/* =============================
+COUNTDOWN
+============================= */
+
+.overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(15,23,42,.88);
+
+  display: none;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 100;
+
+}
+
+.count {
+
+  color: white;
+
+  font-size: 140px;
+
+  font-weight: 900;
+
+}
+
+
+/* =============================
+FINISH
+============================= */
+
+.finish {
+
+  display: none;
+
+  background: white;
+
+  border-radius: 30px;
+
+  padding: 50px;
+
+  text-align: center;
+
+}
+
+.finish h2 {
+
+  font-size: 50px;
+
+}
+
+.final-score {
+
+  font-size: 80px;
+
+  font-weight: 900;
+
+}
+
+
+/* =============================
+RESPONSIVE
+============================= */
+
+@media(max-width: 1000px) {
+
+  .main {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+  .choice {
+
+    min-height: 180px;
+
+  }
+
+  .title {
+
+    font-size: 32px;
+
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <h1>🔎 RATIO JUMP</h1>
+<div class="app">
 
-  <div class="sub">
-    Deteksi Posisi Tubuh
-  </div>
 
-  <div class="camera-box">
+  <!-- HEADER -->
 
-    <video
-      id="video"
-      autoplay
-      playsinline>
-    </video>
+  <div class="header">
 
-    <canvas id="canvas"></canvas>
+    <div class="title">
 
-    <div class="zones">
-      <div class="left-zone"></div>
-      <div class="center-zone"></div>
-      <div class="right-zone"></div>
-    </div>
-
-    <div class="labels">
-
-      <div class="label">
-        🟢 SENILAI
-      </div>
-
-      <div></div>
-
-      <div class="label">
-        🔴 BERBALIK NILAI
-      </div>
+      🔎 RATIO JUMP
 
     </div>
 
+
+    <div class="info">
+
+      <div class="badge">
+
+        SOAL
+        <span id="number">1</span>
+        /
+        <span id="total">0</span>
+
+      </div>
+
+
+      <div class="badge">
+
+        ⭐
+        <span id="score">0</span>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div id="status" class="status">
-    📷 Kamera belum aktif
+
+  <!-- MAIN -->
+
+  <div id="game">
+
+
+    <div class="main">
+
+
+      <!-- LEFT -->
+
+      <div
+        id="leftChoice"
+        class="choice left">
+
+        🟢<br>
+
+        SENILAI
+
+        <br>
+
+        <small>
+          LOMPAT KE KIRI
+        </small>
+
+      </div>
+
+
+      <!-- CENTER -->
+
+      <div class="center">
+
+
+        <!-- CAMERA -->
+
+        <div class="camera">
+
+          <video
+            id="video"
+            autoplay
+            playsinline>
+          </video>
+
+          <div class="camera-label">
+
+            📷 CAMERA LIVE
+
+          </div>
+
+        </div>
+
+
+        <button
+          id="cameraBtn"
+          class="cameraBtn">
+
+          🎥 AKTIFKAN KAMERA
+
+        </button>
+
+
+        <!-- QUESTION -->
+
+        <div
+          id="question"
+          class="question">
+
+          Memuat soal...
+
+        </div>
+
+
+        <!-- TIMER -->
+
+        <div
+          id="timer"
+          class="timer">
+
+          3
+
+        </div>
+
+
+        <div class="progress-bg">
+
+          <div
+            id="progress"
+            class="progress">
+          </div>
+
+        </div>
+
+
+        <!-- FEEDBACK -->
+
+        <div
+          id="feedback"
+          class="feedback">
+
+          Bersiap...
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="actions">
+
+          <button
+            id="revealBtn"
+            class="reveal">
+
+            👀 LIHAT JAWABAN
+
+          </button>
+
+
+          <button
+            id="nextBtn"
+            class="next">
+
+            SOAL BERIKUTNYA ➡️
+
+          </button>
+
+
+          <button
+            id="restartBtn"
+            class="restart">
+
+            🔄 ULANGI
+
+          </button>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- RIGHT -->
+
+      <div
+        id="rightChoice"
+        class="choice right">
+
+        🔴<br>
+
+        BERBALIK NILAI
+
+        <br>
+
+        <small>
+          LOMPAT KE KANAN
+        </small>
+
+      </div>
+
+
+    </div>
+
+
   </div>
 
-  <button id="startBtn">
-    🎥 AKTIFKAN DETEKSI TUBUH
-  </button>
 
-  <div id="debug">
-    Posisi tubuh: -
+  <!-- FINISH -->
+
+  <div
+    id="finish"
+    class="finish">
+
+    <h2>
+
+      🏆 RATIO JUMP SELESAI!
+
+    </h2>
+
+
+    <div
+      id="finalScore"
+      class="final-score">
+
+      0
+
+    </div>
+
+
+    <p
+      id="finalMessage"
+      style="font-size:28px;font-weight:bold;">
+    </p>
+
+
+    <button
+      id="restartFinal"
+      class="restart">
+
+      🔄 MAIN LAGI
+
+    </button>
+
   </div>
+
+
+</div>
+
+
+<!-- COUNTDOWN -->
+
+<div
+  id="overlay"
+  class="overlay">
+
+  <div
+    id="count"
+    class="count">
+
+    3
+
+  </div>
+
+</div>
 
 
 <script>
 
-  const video = document.getElementById("video");
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
+/* ======================================
+CONFIG
+====================================== */
 
-  const statusBox = document.getElementById("status");
-  const startBtn = document.getElementById("startBtn");
-  const debugBox = document.getElementById("debug");
-
-  let poseLandmarker = null;
-  let lastVideoTime = -1;
+const API_URL =
+"https://script.google.com/a/macros/guru.smp.belajar.id/s/AKfycbxoP3_605xuQQb3Rb0uwGPDNLHBq6Xdju3TYYIzom_XovINiPxofhUTeEF20_K8mDFb/exec";
 
 
-  // ==========================================
-  // BUAT POSE LANDMARKER
-  // ==========================================
+/* ======================================
+DATA
+====================================== */
 
-  async function createPoseLandmarker() {
+let questions = [];
 
-    statusBox.innerText =
-      "⏳ Menyiapkan deteksi tubuh...";
+let currentIndex = 0;
 
-    const vision =
-      await window.FilesetResolver.forVisionTasks(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/wasm"
-      );
+let score = 0;
 
-    poseLandmarker =
-      await window.PoseLandmarker.createFromOptions(
-        vision,
-        {
-          baseOptions: {
+let selectedAnswer = null;
 
-            modelAssetPath:
-              "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task",
+let revealed = false;
 
-            delegate: "GPU"
-
-          },
-
-          runningMode: "VIDEO",
-
-          numPoses: 1,
-
-          minPoseDetectionConfidence: 0.5,
-
-          minPosePresenceConfidence: 0.5,
-
-          minTrackingConfidence: 0.5
-
-        }
-      );
-
-  }
+let timerInterval = null;
 
 
-  // ==========================================
-  // AKTIFKAN KAMERA
-  // ==========================================
+/* ======================================
+ELEMENT
+====================================== */
 
-  async function startCamera() {
+const questionEl =
+document.getElementById("question");
 
-    startBtn.disabled = true;
+const numberEl =
+document.getElementById("number");
+
+const totalEl =
+document.getElementById("total");
+
+const scoreEl =
+document.getElementById("score");
+
+const timerEl =
+document.getElementById("timer");
+
+const progressEl =
+document.getElementById("progress");
+
+const feedbackEl =
+document.getElementById("feedback");
+
+const leftChoice =
+document.getElementById("leftChoice");
+
+const rightChoice =
+document.getElementById("rightChoice");
+
+const revealBtn =
+document.getElementById("revealBtn");
+
+const nextBtn =
+document.getElementById("nextBtn");
+
+const restartBtn =
+document.getElementById("restartBtn");
+
+const finish =
+document.getElementById("finish");
+
+const game =
+document.getElementById("game");
+
+const overlay =
+document.getElementById("overlay");
+
+const count =
+document.getElementById("count");
+
+const finalScore =
+document.getElementById("finalScore");
+
+const finalMessage =
+document.getElementById("finalMessage");
+
+const video =
+document.getElementById("video");
+
+const cameraBtn =
+document.getElementById("cameraBtn");
+
+
+/* ======================================
+CAMERA
+====================================== */
+
+cameraBtn.addEventListener(
+  "click",
+  async function() {
 
     try {
 
-      statusBox.innerText =
-        "⏳ Meminta izin kamera...";
+      if (
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+      ) {
+
+        throw new Error(
+          "Browser tidak mendukung kamera."
+        );
+
+      }
+
 
       const stream =
         await navigator.mediaDevices.getUserMedia({
@@ -273,288 +883,735 @@
 
         });
 
+
       video.srcObject = stream;
 
-      await video.play();
+
+      cameraBtn.innerText =
+        "✅ KAMERA AKTIF";
 
 
-      // Tunggu sampai ukuran video tersedia
-      if (video.readyState < 2) {
+      cameraBtn.disabled = true;
 
-        await new Promise(function(resolve) {
+    }
 
-          video.addEventListener(
-            "loadeddata",
-            resolve,
-            { once: true }
-          );
+    catch (error) {
 
-        });
+      alert(
+        "Kamera tidak dapat diakses:\n" +
+        error.message
+      );
+
+    }
+
+  }
+);
+
+
+/* ======================================
+AMBIL SOAL DARI SPREADSHEET
+====================================== */
+
+function loadQuestions() {
+
+  questionEl.innerText =
+    "⏳ Mengambil soal dari Spreadsheet...";
+
+
+  window.receiveQuestions =
+    function(data) {
+
+      questions =
+        Array.isArray(data)
+          ? data
+          : [];
+
+
+      if (
+        questions.length === 0
+      ) {
+
+        questionEl.innerText =
+          "❌ Bank soal kosong.";
+
+        return;
 
       }
 
 
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
+      // Acak soal
 
-
-      statusBox.innerText =
-        "⏳ Memuat AI deteksi tubuh...";
-
-
-      await createPoseLandmarker();
-
-
-      statusBox.innerText =
-        "✅ DETEKSI TUBUH AKTIF";
-
-      startBtn.style.display =
-        "none";
-
-
-      requestAnimationFrame(
-        detectPose
-      );
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      statusBox.innerHTML =
-        "❌ Gagal mengaktifkan deteksi tubuh<br><br>" +
-        error.name +
-        "<br>" +
-        error.message;
-
-      startBtn.disabled = false;
-
-    }
-
-  }
-
-
-  // ==========================================
-  // DETEKSI POSE
-  // ==========================================
-
-  function detectPose() {
-
-    if (!poseLandmarker) {
-
-      requestAnimationFrame(
-        detectPose
-      );
-
-      return;
-
-    }
-
-
-    if (video.readyState < 2) {
-
-      requestAnimationFrame(
-        detectPose
-      );
-
-      return;
-
-    }
-
-
-    if (video.currentTime !== lastVideoTime) {
-
-      lastVideoTime =
-        video.currentTime;
-
-
-      const result =
-        poseLandmarker.detectForVideo(
-          video,
-          performance.now()
+      questions =
+        questions.sort(
+          () => Math.random() - 0.5
         );
 
 
-      processResult(result);
+      totalEl.innerText =
+        questions.length;
 
-    }
+
+      showQuestion();
+
+    };
 
 
-    requestAnimationFrame(
-      detectPose
+  const script =
+    document.createElement("script");
+
+
+  script.src =
+    API_URL +
+    "?api=questions" +
+    "&callback=receiveQuestions" +
+    "&t=" +
+    Date.now();
+
+
+  script.onerror =
+    function() {
+
+      questionEl.innerHTML =
+        "❌ Gagal mengambil soal." +
+        "<br><br>" +
+        "Periksa izin Web App Apps Script.";
+
+    };
+
+
+  document.body.appendChild(
+    script
+  );
+
+}
+
+
+/* ======================================
+SHOW QUESTION
+====================================== */
+
+function showQuestion() {
+
+  clearInterval(
+    timerInterval
+  );
+
+
+  selectedAnswer =
+    null;
+
+  revealed =
+    false;
+
+
+  const q =
+    questions[currentIndex];
+
+
+  numberEl.innerText =
+    currentIndex + 1;
+
+
+  questionEl.innerText =
+    q.soal;
+
+
+  leftChoice.className =
+    "choice left";
+
+
+  rightChoice.className =
+    "choice right";
+
+
+  revealBtn.style.display =
+    "inline-block";
+
+
+  nextBtn.style.display =
+    "none";
+
+
+  feedbackEl.innerHTML =
+    "Baca soal dan bersiap untuk <b>JUMP!</b> 🏃";
+
+
+  mulaiCountdown();
+
+}
+
+
+/* ======================================
+COUNTDOWN
+====================================== */
+
+function mulaiCountdown() {
+
+  overlay.style.display =
+    "flex";
+
+
+  let n = 3;
+
+
+  count.innerText =
+    n;
+
+
+  const interval =
+    setInterval(
+      function() {
+
+        n--;
+
+
+        if (n > 0) {
+
+          count.innerText =
+            n;
+
+        }
+
+
+        else {
+
+          clearInterval(
+            interval
+          );
+
+
+          count.innerText =
+            "JUMP!";
+
+
+          setTimeout(
+            function() {
+
+              overlay.style.display =
+                "none";
+
+              mulaiTimer();
+
+            },
+            600
+          );
+
+        }
+
+      },
+      700
     );
+
+}
+
+
+/* ======================================
+TIMER
+====================================== */
+
+function mulaiTimer() {
+
+  let t = 5;
+
+
+  timerEl.innerText =
+    t;
+
+
+  progressEl.style.width =
+    "100%";
+
+
+  timerInterval =
+    setInterval(
+      function() {
+
+        t -= 0.1;
+
+
+        const rounded =
+          Math.ceil(t);
+
+
+        timerEl.innerText =
+          Math.max(
+            0,
+            rounded
+          );
+
+
+        progressEl.style.width =
+          Math.max(
+            0,
+            (t / 5) * 100
+          ) + "%";
+
+
+        if (t <= 0) {
+
+          clearInterval(
+            timerInterval
+          );
+
+
+          timerEl.innerText =
+            "⏰ WAKTU HABIS";
+
+
+          feedbackEl.innerHTML =
+            "Sekarang klik sisi yang dipilih siswa, " +
+            "kemudian tekan <b>LIHAT JAWABAN</b>.";
+
+        }
+
+      },
+      100
+    );
+
+}
+
+
+/* ======================================
+PILIH SISI
+====================================== */
+
+leftChoice.addEventListener(
+  "click",
+  function() {
+
+    if (revealed) return;
+
+
+    selectedAnswer =
+      "SENILAI";
+
+
+    leftChoice.classList.add(
+      "selected"
+    );
+
+
+    rightChoice.classList.remove(
+      "selected"
+    );
+
+
+    feedbackEl.innerHTML =
+      "🟢 Pilihan siswa: <b>SENILAI</b><br>" +
+      "Tekan <b>LIHAT JAWABAN</b>.";
 
   }
+);
 
 
-  // ==========================================
-  // PROSES HASIL
-  // ==========================================
+rightChoice.addEventListener(
+  "click",
+  function() {
 
-  function processResult(result) {
+    if (revealed) return;
 
-    ctx.clearRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
+
+    selectedAnswer =
+      "BERBALIK NILAI";
+
+
+    rightChoice.classList.add(
+      "selected"
     );
 
 
+    leftChoice.classList.remove(
+      "selected"
+    );
+
+
+    feedbackEl.innerHTML =
+      "🔴 Pilihan siswa: <b>BERBALIK NILAI</b><br>" +
+      "Tekan <b>LIHAT JAWABAN</b>.";
+
+  }
+);
+
+
+/* ======================================
+REVEAL
+====================================== */
+
+revealBtn.addEventListener(
+  "click",
+  function() {
+
     if (
-      !result.landmarks ||
-      result.landmarks.length === 0
+      revealed ||
+      !selectedAnswer
     ) {
 
-      statusBox.innerText =
-        "👤 Tubuh belum terdeteksi";
-
-      debugBox.innerText =
-        "Posisi tubuh: belum terdeteksi";
+      feedbackEl.innerHTML =
+        "⚠️ Pilih sisi yang dipilih siswa dulu.";
 
       return;
 
     }
 
 
-    const landmarks =
-      result.landmarks[0];
+    const q =
+      questions[currentIndex];
 
 
-    // Bahu
-    const leftShoulder =
-      landmarks[11];
-
-    const rightShoulder =
-      landmarks[12];
+    revealed = true;
 
 
-    // Pinggul
-    const leftHip =
-      landmarks[23];
-
-    const rightHip =
-      landmarks[24];
+    clearInterval(
+      timerInterval
+    );
 
 
-    // Titik tengah tubuh
-    const centerX =
-      (
-        leftShoulder.x +
-        rightShoulder.x +
-        leftHip.x +
-        rightHip.x
-      ) / 4;
+    const benar =
+      selectedAnswer ===
+      q.jawaban;
 
 
-    /*
-      Karena video ditampilkan mirror,
-      koordinat X dibalik untuk membaca
-      posisi berdasarkan tampilan layar.
-    */
+    if (benar) {
 
-    const displayX =
-      1 - centerX;
+      score +=
+        Number(q.poin) || 10;
 
 
-    const persen =
-      Math.round(
-        displayX * 100
-      );
+      scoreEl.innerText =
+        score;
 
 
-    debugBox.innerText =
-      "Posisi tubuh: " +
-      persen +
-      "%";
+      if (
+        selectedAnswer ===
+        "SENILAI"
+      ) {
+
+        leftChoice.classList.add(
+          "correct"
+        );
+
+      }
+
+      else {
+
+        rightChoice.classList.add(
+          "correct"
+        );
+
+      }
 
 
-    if (displayX < 0.45) {
-
-      statusBox.innerText =
-        "🟢 POSISI: SENILAI";
+      feedbackEl.innerHTML =
+        "🎉 <strong>BENAR!</strong><br>" +
+        "+" +
+        (Number(q.poin) || 10) +
+        " poin<br><br>" +
+        q.pembahasan;
 
     }
 
-    else if (displayX > 0.55) {
-
-      statusBox.innerText =
-        "🔴 POSISI: BERBALIK NILAI";
-
-    }
 
     else {
 
-      statusBox.innerText =
-        "⚪ POSISI: TENGAH";
+      if (
+        selectedAnswer ===
+        "SENILAI"
+      ) {
+
+        leftChoice.classList.add(
+          "wrong"
+        );
+
+      }
+
+      else {
+
+        rightChoice.classList.add(
+          "wrong"
+        );
+
+      }
+
+
+      if (
+        q.jawaban ===
+        "SENILAI"
+      ) {
+
+        leftChoice.classList.add(
+          "correct"
+        );
+
+      }
+
+      else {
+
+        rightChoice.classList.add(
+          "correct"
+        );
+
+      }
+
+
+      feedbackEl.innerHTML =
+        "😅 <strong>BELUM TEPAT</strong><br>" +
+        "Jawaban benar: <b>" +
+        q.jawaban +
+        "</b><br><br>" +
+        q.pembahasan;
 
     }
 
 
-    drawLandmarks(
-      landmarks
+    revealBtn.style.display =
+      "none";
+
+
+    nextBtn.style.display =
+      "inline-block";
+
+
+    // Simpan ke Spreadsheet
+
+    saveResult(
+      q,
+      selectedAnswer,
+      benar
     );
 
   }
+);
 
 
-  // ==========================================
-  // GAMBAR TITIK TUBUH
-  // ==========================================
+/* ======================================
+SAVE RESULT
+====================================== */
 
-function drawLandmarks(landmarks) {
+function saveResult(
+  q,
+  answer,
+  benar
+) {
 
-  ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
+  window.saveAck =
+    function(result) {
+
+      console.log(
+        "Hasil tersimpan:",
+        result
+      );
+
+    };
+
+
+  const params =
+
+    "?api=save" +
+
+    "&callback=saveAck" +
+
+    "&pemain=" +
+    encodeURIComponent(
+      "Kelas VII"
+    ) +
+
+    "&id=" +
+    encodeURIComponent(
+      q.id
+    ) +
+
+    "&jawaban=" +
+    encodeURIComponent(
+      answer
+    ) +
+
+    "&jawabanBenar=" +
+    encodeURIComponent(
+      q.jawaban
+    ) +
+
+    "&status=" +
+    encodeURIComponent(
+      benar
+        ? "BENAR"
+        : "SALAH"
+    ) +
+
+    "&skor=" +
+    encodeURIComponent(
+      benar
+        ? Number(q.poin) || 10
+        : 0
+    );
+
+
+  const script =
+    document.createElement(
+      "script"
+    );
+
+
+  script.src =
+    API_URL +
+    params +
+    "&t=" +
+    Date.now();
+
+
+  document.body.appendChild(
+    script
   );
 
-  ctx.fillStyle = "#00ff00";
-
-  for (const point of landmarks) {
-
-    if (
-      point.visibility !== undefined &&
-      point.visibility < 0.4
-    ) {
-      continue;
-    }
-
-    // Balik posisi X agar titik mengikuti
-    // tampilan video yang sudah di-mirror
-    const x =
-      (1 - point.x) * canvas.width;
-
-    const y =
-      point.y * canvas.height;
-
-    ctx.beginPath();
-
-    ctx.arc(
-      x,
-      y,
-      5,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.fill();
-  }
 }
 
 
-  // ==========================================
-  // TOMBOL START
-  // ==========================================
+/* ======================================
+NEXT
+====================================== */
 
-  startBtn.addEventListener(
+nextBtn.addEventListener(
+  "click",
+  function() {
+
+    currentIndex++;
+
+
+    if (
+      currentIndex >=
+      questions.length
+    ) {
+
+      finishGame();
+
+      return;
+
+    }
+
+
+    showQuestion();
+
+  }
+);
+
+
+/* ======================================
+FINISH
+====================================== */
+
+function finishGame() {
+
+  game.style.display =
+    "none";
+
+  finish.style.display =
+    "block";
+
+
+  finalScore.innerText =
+    score +
+    " POIN";
+
+
+  const max =
+    questions.reduce(
+      function(total, q) {
+
+        return total +
+          (Number(q.poin) || 10);
+
+      },
+      0
+    );
+
+
+  const accuracy =
+    max > 0
+      ? Math.round(
+          score /
+          max *
+          100
+        )
+      : 0;
+
+
+  if (accuracy >= 90) {
+
+    finalMessage.innerText =
+      "🏆 RATIO MASTER!";
+
+  }
+
+  else if (accuracy >= 75) {
+
+    finalMessage.innerText =
+      "⭐ RATIO EXPERT!";
+
+  }
+
+  else {
+
+    finalMessage.innerText =
+      "💪 TERUS BERLATIH!";
+
+  }
+
+}
+
+
+/* ======================================
+RESTART
+====================================== */
+
+function restartGame() {
+
+  currentIndex = 0;
+
+  score = 0;
+
+  scoreEl.innerText =
+    "0";
+
+
+  finish.style.display =
+    "none";
+
+  game.style.display =
+    "block";
+
+
+  questions =
+    questions.sort(
+      () => Math.random() - 0.5
+    );
+
+
+  showQuestion();
+
+}
+
+
+restartBtn.addEventListener(
+  "click",
+  restartGame
+);
+
+
+document
+  .getElementById("restartFinal")
+  .addEventListener(
     "click",
-    startCamera
+    restartGame
   );
+
+
+/* ======================================
+START
+====================================== */
+
+loadQuestions();
 
 </script>
 
 </body>
+
 </html>
