@@ -458,6 +458,38 @@ function prosesHasil(result) {
 
 function gambarPose(landmarks) {
 
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  ctx.fillStyle = "#00ff00";
+
+  for (const point of landmarks) {
+
+    // Mirror agar titik mengikuti tampilan kamera
+    const x =
+      (1 - point.x) * canvas.width;
+
+    const y =
+      point.y * canvas.height;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x,
+      y,
+      6,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fill();
+  }
+}
+
   ctx.fillStyle = "#00ff00";
 
   for (const point of landmarks) {
